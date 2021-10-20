@@ -3,11 +3,10 @@ unit Table;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, MenuManager, MainMenu;
+  MenuManager, MainMenu, BasicForm;
 
 type
-  TTableForm = class(TForm)
+  TTableForm = class(BasicForm.TIBasicForm)
     procedure FormShow(Sender: TObject);
   private
   public

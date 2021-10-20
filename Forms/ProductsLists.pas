@@ -3,11 +3,10 @@ unit ProductsLists;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, FormManager, MenuManager, MainMenu;
+  BasicForm, FormManager, MenuManager, MainMenu;
 
 type
-  TMainForm = class(TForm)
+  TMainForm = class(BasicForm.TIBasicForm)
     procedure FormShow(Sender: TObject);
   private
     { Private declarations }
@@ -23,5 +22,6 @@ procedure TMainForm.FormShow(Sender: TObject);
 begin
   MenuManager.InitMenu(Self, MainMenu.InitMainMenu);
 end;
+
 
 end.
