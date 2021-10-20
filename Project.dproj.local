@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.499,=J:\Delphi\ProductsLists\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.535,=J:\Delphi\ProductsLists\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.446,=J:\Delphi\ProductsLists\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.933,=J:\Delphi\ProductsLists\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.435,J:\Delphi\ProductsLists\ProductsLists.pas=J:\Delphi\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.700,J:\Delphi\ProductsLists\Table.dfm=J:\Delphi\ProductsLists\TableForm.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.385,J:\Delphi\ProductsLists\FormManager.pas=J:\Delphi\ProductsLists\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.213,J:\Delphi\ProductsLists\Unit1.pas=J:\Delphi\ProductsLists\MainMenu.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.538,J:\Delphi\ProductsLists\MainMenuManager.pas=J:\Delphi\ProductsLists\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.653,J:\Delphi\ProductsLists\TableForm.dfm=J:\Delphi\ProductsLists\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.653,J:\Delphi\ProductsLists\TableForm.pas=J:\Delphi\ProductsLists\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.040,J:\Delphi\ProductsLists\Project.dproj=J:\Delphi\Project1.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.700,J:\Delphi\ProductsLists\Table.pas=J:\Delphi\ProductsLists\TableForm.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.435,J:\Delphi\ProductsLists\ProductsLists.dfm=J:\Delphi\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.639,=J:\Delphi\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.247,J:\Delphi\ProductsLists\MainMenuManager.pas=J:\Delphi\ProductsLists\MenuManager.pas</Transaction>
+    <Transaction>2021.10.20 09:59:51.815,=J:\Delphi\ProductsLists\Menu\MainMenu.pas</Transaction>
+    <Transaction>2021.10.20 09:59:51.846,=J:\Delphi\ProductsLists\Menu\MenuManager.pas</Transaction>
+  </Transactions>
+	<ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="Menu"/>
+    <File Path="Menu\MainMenu.pas"/>
+    <File Path="Menu\MenuManager.pas"/>
+    <File Path="FormManager.pas"/>
+    <File Path="ProductsLists.pas"/>
+    <File Path="ProductsLists.dfm"/>
+    <File Path="Table.pas"/>
+    <File Path="Table.dfm"/>
+  </ProjectSortOrder>
+</BorlandProject>
