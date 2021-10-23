@@ -3,14 +3,14 @@ unit FormManager;
 interface
 
 uses
-  Vcl.Forms;
+  BasicForm, Vcl.Forms;
 
 type
   TType = (None = 0, Main = 1, Table = 2);
 
 var
-  gMainForm: TForm = nil;
-  gTableForm: TForm = nil;
+  gMainForm: BasicForm.TIBasicForm = nil;
+  gTableForm: BasicForm.TIBasicForm = nil;
 
 procedure Open(_type: TType);
 
@@ -18,7 +18,7 @@ implementation
 
 var
   gCurrentType: TType = TType.None;
-  gCurrentForm: TForm = nil;
+  gCurrentForm: BasicForm.TIBasicForm = nil;
 
 procedure Open(_type: TType);
 begin
@@ -27,7 +27,7 @@ begin
 
   gCurrentType := _type;
 
-  var newForm: TForm := nil;
+  var newForm: BasicForm.TIBasicForm := nil;
 
   // select new form
   case gCurrentType of
@@ -48,7 +48,7 @@ begin
 
   gCurrentForm := newForm;
 
-  if (fsModal in gCurrentForm.FormState) then
+  if (fsModal in TForm(gCurrentForm).FormState) then
     gCurrentForm.Show()
   else
     gCurrentForm.ShowModal();

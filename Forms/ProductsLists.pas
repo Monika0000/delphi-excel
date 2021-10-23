@@ -20,7 +20,7 @@ implementation
 
 procedure TMainForm.FormShow(Sender: TObject);
 begin
-  MenuManager.InitMenu(Self, MainMenu.InitMainMenu);
+  MenuManager.InitMenu(Self, _menu);
 end;
 
 

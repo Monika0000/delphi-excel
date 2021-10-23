@@ -3,7 +3,7 @@ unit MainMenu;
 interface
 
 uses
-  Vcl.Menus, Forms, System.Classes, MenuManager, FormManager;
+  Vcl.Menus, Forms, System.Classes, MenuManager, FormManager, Table, CommandManager;
 
 procedure InitMainMenu(menu: TMainMenu);
 
@@ -16,6 +16,7 @@ end;
 
 procedure LoadMenuButton(Sender: TObject);
 begin
+  TTableForm(FormManager.gTableForm).Load('none');
   FormManager.Open(FormManager.TType.Table);
 end;
 
@@ -31,7 +32,18 @@ end;
 
 procedure CloseMenuButton(Sender: TObject);
 begin
+  TTableForm(FormManager.gTableForm).Clear();
   FormManager.Open(FormManager.TType.Main);
+end;
+
+procedure RedoMenuButton(Sender: TObject);
+begin
+  CommandManager.gCmdManager.Redo();
+end;
+
+procedure UndoMenuButton(Sender: TObject);
+begin
+  CommandManager.gCmdManager.Undo();
 end;
 
 procedure InitMainMenu(menu: TMainMenu);
@@ -43,7 +55,12 @@ begin
   fileMenu.Add(AddSubmenu(fileMenu, 'Save As', SaveAsMenuButton));
   fileMenu.Add(AddSubmenu(fileMenu, 'Close', CloseMenuButton));
 
+  var editMenu := MenuManager.AddSubmenu(menu, 'Edit');
+  editMenu.Add(AddSubMenu(editMenu, 'Redo', RedoMenuButton));
+  editMenu.Add(AddSubMenu(editMenu, 'Undo', UndoMenuButton));
+
   gCurrentMenu.Items.Add(fileMenu);
+  gCurrentMenu.Items.Add(editMenu);
 end;
 
 end.
