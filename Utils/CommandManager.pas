@@ -16,8 +16,10 @@ type TCmdManager = class
     procedure Redo();
     procedure Undo();
     procedure ClearAfter(_begin: integer);
+    procedure ClearAll();
+    function Top(): &TICommand;
   private
-    const _maxCmds = 16;
+    const _maxCmds = 2048;
     var _current: integer;
     var _commands: array[0..(_maxCmds - 1)] of TICommand;
 end;
@@ -27,6 +29,21 @@ var gCmdManager: TCmdManager;
 procedure Init();
 
 implementation
+
+procedure TCmdManager.ClearAll();
+begin
+  _current := 0;
+  for var i := 0 to _maxCmds - 1 do
+    _commands[i] := nil;
+end;
+
+function TCmdManager.Top(): &TICommand;
+begin
+  if _current <= 0 then
+    Top := nil
+  else
+    Top := _commands[_current - 1];
+end;
 
 procedure Init();
 begin
@@ -44,7 +61,7 @@ begin
   if _commands[_begin] = nil then
     exit;
 
-  for var i := 0 to _maxCmds do
+  for var i := _begin + 1 to _maxCmds - 1 do
     _commands[i] := nil;
 end;
 
@@ -63,7 +80,7 @@ begin
   _commands[_current] := cmd;
   _current := _current + 1;
 
-  //ClearAfter(_current);
+  ClearAfter(_current - 1);
 end;
 
 procedure TCmdManager.Redo();

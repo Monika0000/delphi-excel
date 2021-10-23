@@ -11,7 +11,10 @@ implementation
 
 procedure NewMenuButton(Sender: TObject);
 begin
-  FormManager.Open(FormManager.TType.Table);
+  //var colNames: Table.ColNamesArray := ['Aboba', 'Fofo', 'Fofo', 'sadas'];
+  //Table.TTableForm(FormManager.gTableForm).New(3, 5, true, colNames);
+
+  FormManager.Open(FormManager.TType.TableMaster);
 end;
 
 procedure LoadMenuButton(Sender: TObject);

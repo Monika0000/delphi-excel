@@ -11,7 +11,9 @@ uses
   Table in 'Forms\Table.pas' {TableForm},
   BasicForm in 'Forms\BasicForm.pas',
   CommandManager in 'Utils\CommandManager.pas',
-  GridCellCommand in 'Utils\GridCellCommand.pas';
+  GridCellCommand in 'Utils\GridCellCommand.pas' {$R *.res},
+  TableMaster in 'Forms\TableMaster.pas' {TableMasterForm},
+  Types in 'Utils\Types.pas';
 
 {$R *.res}
 
@@ -26,6 +28,9 @@ begin
 
   FormManager.gMainForm := TMainForm.Create(Application);
   FormManager.gMainForm.SetMenu(MainMenu.InitMainMenu);
+
+  FormManager.gTableMasterForm := TTableMasterForm.Create(Application);
+  FormManager.gTableMasterForm.SetMenu(MainMenu.InitMainMenu);
 
   FormManager.Open(FormManager.TType.Main);
 

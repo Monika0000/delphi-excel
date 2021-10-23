@@ -2,7 +2,7 @@ object TableForm: TTableForm
   Left = 0
   Top = 0
   Caption = #1058#1072#1073#1083#1080#1094#1072
-  ClientHeight = 454
+  ClientHeight = 466
   ClientWidth = 716
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -16,14 +16,15 @@ object TableForm: TTableForm
   PixelsPerInch = 96
   TextHeight = 15
   object TableGrid: TStringGrid
-    Left = -3
-    Top = -8
+    Left = 0
+    Top = 0
     Width = 708
     Height = 462
     ColCount = 255
     RowCount = 255
     ParentColor = True
     TabOrder = 0
+    OnKeyDown = TableGridKeyDown
     OnSelectCell = TableGridSelectCell
     OnSetEditText = TableGridSetEditText
     RowHeights = (

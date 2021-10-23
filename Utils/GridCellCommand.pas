@@ -9,6 +9,9 @@ type TGridCellCommand = class(TICommand)
     constructor Create(grid: &TStringGrid; col, row: integer; old, new: string);
     procedure Redo(); override;
     procedure Undo(); override;
+    function GetColumn(): Integer;
+    function GetRow(): Integer;
+    procedure Update(new: string);
   private
     var _grid: &TStringGrid;
     var _col, _row: integer;
@@ -24,6 +27,21 @@ begin
   _row := row;
   _old := old;
   _new := new;
+end;
+
+procedure TGridCellCommand.Update(new: string);
+begin
+  _new := new;
+end;
+
+function TGridCellCommand.GetColumn(): Integer;
+begin
+  GetColumn := _col;
+end;
+
+function TGridCellCommand.GetRow(): Integer;
+begin
+  GetRow := _row;
 end;
 
 procedure TGridCellCommand.Redo();

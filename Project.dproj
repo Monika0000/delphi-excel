@@ -111,7 +111,15 @@
         </DCCReference>
         <DCCReference Include="Forms\BasicForm.pas"/>
         <DCCReference Include="Utils\CommandManager.pas"/>
-        <DCCReference Include="Utils\GridCellCommand.pas"/>
+        <DCCReference Include="Utils\GridCellCommand.pas">
+            <Form>$R *.res</Form>
+        </DCCReference>
+        <DCCReference Include="Forms\TableMaster.pas">
+            <Form>TableMasterForm</Form>
+        </DCCReference>
+        <DCCReference Include="Utils\Types.pas"/>
+        <None Include="ModelSupport_Project\default.txaPackage"/>
+        <None Include="ModelSupport_Project\default.txvpck"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -134,6 +142,18 @@
                 </Source>
             </Delphi.Personality>
             <Deployment Version="3">
+                <DeployFile LocalName="ModelSupport_Project\default.txvpck" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="ModelSupport_Project\default.txaPackage" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="Win32\Debug\Project.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>Project.exe</RemoteName>
@@ -955,6 +975,7 @@
                 <Platform value="Win32">True</Platform>
                 <Platform value="Win64">False</Platform>
             </Platforms>
+            <ModelSupport>True</ModelSupport>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>
     </ProjectExtensions>

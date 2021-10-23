@@ -3,14 +3,15 @@ unit FormManager;
 interface
 
 uses
-  BasicForm, Vcl.Forms;
+  BasicForm, Vcl.Forms, Types;
 
 type
-  TType = (None = 0, Main = 1, Table = 2);
+  TType = (None = 0, Main = 1, Table = 2, TableMaster = 3);
 
 var
-  gMainForm: BasicForm.TIBasicForm = nil;
-  gTableForm: BasicForm.TIBasicForm = nil;
+  gMainForm:        BasicForm.TIBasicForm = nil;
+  gTableForm:       BasicForm.TIBasicForm = nil;
+  gTableMasterForm: BasicForm.TIBasicForm = nil;
 
 procedure Open(_type: TType);
 
@@ -34,6 +35,7 @@ begin
     TType.None: exit;
     TType.Main: newForm := gMainForm;
     TType.Table: newForm := gTableForm;
+    TType.TableMaster: newForm := gTableMasterForm;
   end;
 
   // close the old form and inherit its settings

@@ -16,9 +16,6 @@ type
   public
     procedure SetMenu(menu: TMenuInitProc);
   protected
-    procedure OnKeyDown(key: integer); virtual;
-    procedure OnKeyPress(key: integer); virtual;
-  protected
     var _menu: TMenuInitProc;
   end;
 
@@ -28,9 +25,6 @@ procedure TIBasicForm.SetMenu(menu: TMenuInitProc);
 begin
   _menu := menu;
 end;
-
-procedure TIBasicForm.OnKeyDown(key: Integer); begin end;
-procedure TIBasicForm.OnKeyPress(key: Integer); begin end;
 
 procedure TIBasicForm.WMGetSysCommand;
 begin
