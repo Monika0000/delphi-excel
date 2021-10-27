@@ -6,8 +6,6 @@ uses
   MenuManager, BasicForm, System.Classes, Vcl.Controls, Vcl.Grids, Winapi.Windows,
   Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, System.SysUtils, CommandManager, GridCellCommand;
 
-type ColNamesArray = array of string;
-
 type
   TTableForm = class(BasicForm.TIBasicForm)
     TableGrid: TStringGrid;
@@ -24,7 +22,7 @@ type
   private
     var _lastCellValue: string;
   public
-    procedure New(rows, cols: integer; _repeat: boolean; colNames: ColNamesArray = nil);
+    procedure New(rows, cols: integer; _repeat: boolean; colNames: TArray<string> = nil);
     procedure Load(path: string);
     procedure Save(path: string);
     procedure Clear();
@@ -50,7 +48,7 @@ begin
   TableGrid.Height := Self.Height - 58;
 end;
 
-procedure TTableForm.New(rows, cols: integer; _repeat: boolean; colNames: ColNamesArray);
+procedure TTableForm.New(rows, cols: integer; _repeat: boolean; colNames: TArray<string>);
 begin
   CommandManager.gCmdManager.ClearAll();
 
@@ -59,7 +57,7 @@ begin
   TableGrid.RowCount := rows + 1;
   TableGrid.ColCount := cols + 1;
 
-  var _colNames: ColNamesArray;
+  var _colNames: TArray<string>;
 
   if colNames = nil then
     _colNames :=  ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']

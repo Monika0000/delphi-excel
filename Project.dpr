@@ -13,7 +13,9 @@ uses
   CommandManager in 'Utils\CommandManager.pas',
   GridCellCommand in 'Utils\GridCellCommand.pas' {$R *.res},
   TableMaster in 'Forms\TableMaster.pas' {TableMasterForm},
-  Types in 'Utils\Types.pas';
+  Types in 'Utils\Types.pas',
+  FileSystem in 'Utils\FileSystem.pas',
+  StringUtils in 'Utils\StringUtils.pas';
 
 {$R *.res}
 

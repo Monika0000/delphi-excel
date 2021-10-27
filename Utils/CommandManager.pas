@@ -2,7 +2,7 @@ unit CommandManager;
 
 interface
 
-uses Vcl.Dialogs, System.SysUtils;
+uses Vcl.Dialogs, System.SysUtils, IOUtils;
 
 type TICommand = class
   public
