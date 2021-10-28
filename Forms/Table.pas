@@ -4,11 +4,21 @@ interface
 
 uses
   MenuManager, BasicForm, System.Classes, Vcl.Controls, Vcl.Grids, Winapi.Windows,
-  Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, System.SysUtils, CommandManager, GridCellCommand;
+  Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, System.SysUtils, CommandManager, GridCellCommand,
+  Vcl.Menus, Types, RowCommand;
 
 type
   TTableForm = class(BasicForm.TIBasicForm)
     TableGrid: TStringGrid;
+    TablePopupMenu: TPopupMenu;
+    InsertRowUp: TMenuItem;
+    InsertColLeft: TMenuItem;
+    InsertRowDown: TMenuItem;
+    InsertColRight: TMenuItem;
+    N5: TMenuItem;
+    N7: TMenuItem;
+    N8: TMenuItem;
+    N9: TMenuItem;
     procedure FormShow(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -19,7 +29,16 @@ type
       var CanSelect: Boolean);
     procedure TableGridKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure TableGridContextPopup(Sender: TObject; MousePos: TPoint;
+      var Handled: Boolean);
+    procedure InsertRowDownClick(Sender: TObject);
+    procedure InsertRowUpClick(Sender: TObject);
+    procedure DeleteRowButton(Sender: TObject);
   private
+    procedure DeselectCells();
+    procedure EnumerateRows();
+  private
+    var _popupCell: TPoint;
     var _lastCellValue: string;
   public
     procedure New(rows, cols: integer; _repeat: boolean; colNames: TArray<string> = nil);
@@ -30,15 +49,61 @@ type
 
 implementation
 
-const gEmptyCell = '###empty###$$$empty$$$%%%empty%%%';
+procedure TTableForm.DeselectCells();
+begin
+  var rect: TGridRect;
+   with rect do begin
+    Left := -1;
+    Top := -1;
+    Right := -1;
+    Bottom := -1;
+  end;
+  TableGrid.Selection := rect;
+end;
+
+procedure TTableForm.EnumerateRows();
+begin
+  for var i := 1 to TableGrid.RowCount do
+  begin
+    TableGrid.Rows[i][0] := IntToStr(i);
+  end;
+end;
 
 procedure TTableForm.FormShow(Sender: TObject);
 begin
   MenuManager.InitMenu(Self, _menu);
+  DeselectCells();
+end;
+
+procedure TTableForm.InsertRowDownClick(Sender: TObject);
+begin
+  var cmd := RowCommand.TRowCommand.Create(TableGrid, _popupCell.Y, procedure()
+    begin
+      EnumerateRows();
+      DeselectCells();
+    end, RowCommand.Down
+  );
+
+  cmd.Redo();
+  CommandManager.gCmdManager.Send(cmd);
+end;
+
+procedure TTableForm.InsertRowUpClick(Sender: TObject);
+begin
+  var cmd := RowCommand.TRowCommand.Create(TableGrid, _popupCell.Y, procedure()
+    begin
+      EnumerateRows();
+      DeselectCells();
+    end, RowCommand.Up
+  );
+
+  cmd.Redo();
+  CommandManager.gCmdManager.Send(cmd);
 end;
 
 procedure TTableForm.FormCreate(Sender: TObject);
 begin
+  TableGrid.PopupMenu := TablePopupMenu;
   TableGrid.Options := TableGrid.Options + [goEditing] + [goColSizing] + [goTabs];
 end;
 
@@ -46,6 +111,19 @@ procedure TTableForm.FormResize(Sender: TObject);
 begin
   TableGrid.Width := Self.Width - 13;
   TableGrid.Height := Self.Height - 58;
+end;
+
+procedure TTableForm.DeleteRowButton(Sender: TObject);
+begin
+  var cmd := RowCommand.TRowCommand.Create(TableGrid, _popupCell.Y, procedure()
+    begin
+      EnumerateRows();
+      DeselectCells();
+    end, RowCommand.PlaceNone
+  );
+
+  cmd.Redo();
+  CommandManager.gCmdManager.Send(cmd);
 end;
 
 procedure TTableForm.New(rows, cols: integer; _repeat: boolean; colNames: TArray<string>);
@@ -57,17 +135,14 @@ begin
   TableGrid.RowCount := rows + 1;
   TableGrid.ColCount := cols + 1;
 
+  EnumerateRows();
+
   var _colNames: TArray<string>;
 
   if colNames = nil then
     _colNames :=  ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
   else
     _colNames := colNames;
-
-  for var i := 1 to TableGrid.RowCount do
-  begin
-    TableGrid.Rows[i][0] := IntToStr(i);
-  end;
 
   if _repeat then begin
     for var i := 0 to TableGrid.ColCount do
@@ -99,6 +174,12 @@ end;
 procedure TTableForm.Save(path: string);
 begin
   //
+end;
+
+procedure TTableForm.TableGridContextPopup(Sender: TObject; MousePos: TPoint;
+  var Handled: Boolean);
+begin
+  (Sender as TStringGrid).MouseToCell(MousePos.X, MousePos.Y, _popupCell.X, _popupCell.Y);
 end;
 
 procedure TTableForm.TableGridKeyDown(Sender: TObject; var Key: Word;

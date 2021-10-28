@@ -15,7 +15,8 @@ uses
   TableMaster in 'Forms\TableMaster.pas' {TableMasterForm},
   Types in 'Utils\Types.pas',
   FileSystem in 'Utils\FileSystem.pas',
-  StringUtils in 'Utils\StringUtils.pas';
+  StringUtils in 'Utils\StringUtils.pas',
+  RowCommand in 'Utils\RowCommand.pas';
 
 {$R *.res}
 
