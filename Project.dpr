@@ -16,7 +16,8 @@ uses
   Types in 'Utils\Types.pas',
   FileSystem in 'Utils\FileSystem.pas',
   StringUtils in 'Utils\StringUtils.pas',
-  RowCommand in 'Utils\RowCommand.pas';
+  RowCommand in 'Utils\RowCommand.pas',
+  ColCommand in 'Utils\ColCommand.pas';
 
 {$R *.res}
 

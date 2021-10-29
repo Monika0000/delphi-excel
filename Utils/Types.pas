@@ -4,6 +4,8 @@ interface
 
 uses Vcl.Forms;
 
+type TCallBack = reference to procedure();
+
 type TIVec3 = array[0..2] of Integer;
 type TFVec3 = array[0..2] of Real;
 

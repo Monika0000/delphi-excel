@@ -7,7 +7,7 @@
     <Transaction>1899.12.30 00:00:00.000.028,J:\Delphi\ProductsLists\Unit1.pas=J:\Delphi\ProductsLists\Forms\TableCreationMaster.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.112,J:\Delphi\ProductsLists\Unit1.pas=J:\Delphi\ProductsLists\BasicForm.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.446,=J:\Delphi\ProductsLists\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.034,=J:\Delphi\ProductsLists\Utils\GridCellCommand.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.447,=J:\Delphi\delphi-excel\Utils\StringUtils.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.282,=J:\Delphi\ProductsLists\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.313,=J:\Delphi\ProductsLists\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.499,=J:\Delphi\ProductsLists\Unit1.pas</Transaction>
@@ -19,32 +19,33 @@
     <Transaction>1899.12.30 00:00:00.000.237,=J:\Delphi\ProductsLists\Forms\BasicForm.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.128,=J:\Delphi\ProductsLists\ModelSupport_Project\default.txvpck</Transaction>
     <Transaction>1899.12.30 00:00:00.000.538,J:\Delphi\ProductsLists\Unit1.pas=J:\Delphi\ProductsLists\MainMenuManager.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.038,J:\Delphi\ProductsLists\Unit1.pas=J:\Delphi\ProductsLists\Forms\TableCreationMasterForm.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.653,J:\Delphi\ProductsLists\Unit1.pas=J:\Delphi\ProductsLists\TableForm.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.038,J:\Delphi\ProductsLists\Unit1.pas=J:\Delphi\ProductsLists\Forms\TableCreationMasterForm.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.340,=J:\Delphi\ProductsLists\ModelSupport_Project\default.txaPackage</Transaction>
     <Transaction>1899.12.30 00:00:00.000.917,=J:\Delphi\delphi-excel\Utils\FileSystem.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.213,J:\Delphi\ProductsLists\MainMenu.pas=J:\Delphi\ProductsLists\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.247,J:\Delphi\ProductsLists\MenuManager.pas=J:\Delphi\ProductsLists\MainMenuManager.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.266,J:\Delphi\ProductsLists\BasicForm.pas=</Transaction>
     <Transaction>1899.12.30 00:00:00.000.076,=J:\Delphi\ProductsLists\Forms\FormManager.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.819,J:\Delphi\ProductsLists\Forms\TableCreationMasterForm.pas=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.678,=J:\Delphi\delphi-excel\Utils\RowCommand.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.213,J:\Delphi\ProductsLists\MainMenu.pas=J:\Delphi\ProductsLists\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.353,=J:\Delphi\ProductsLists\Utils\Types.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.846,=J:\Delphi\ProductsLists\Menu\MenuManager.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.984,=J:\Delphi\ProductsLists\Forms\TableMaster.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.176,=J:\Delphi\ProductsLists\Utils\CommandManager.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.298,=J:\Delphi\ProductsLists\Forms\Table.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.038,J:\Delphi\ProductsLists\Unit1.dfm=J:\Delphi\ProductsLists\Forms\TableCreationMasterForm.dfm</Transaction>
     <Transaction>1899.12.30 00:00:00.000.435,J:\Delphi\Unit1.dfm=J:\Delphi\ProductsLists\ProductsLists.dfm</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.447,=J:\Delphi\delphi-excel\Utils\StringUtils.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.034,=J:\Delphi\ProductsLists\Utils\GridCellCommand.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.229,=J:\Delphi\ProductsLists\Forms\ProductsLists.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.435,J:\Delphi\Unit1.pas=J:\Delphi\ProductsLists\ProductsLists.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.639,=J:\Delphi\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.435,J:\Delphi\Unit1.pas=J:\Delphi\ProductsLists\ProductsLists.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.700,J:\Delphi\ProductsLists\TableForm.dfm=J:\Delphi\ProductsLists\Table.dfm</Transaction>
     <Transaction>1899.12.30 00:00:00.000.028,J:\Delphi\ProductsLists\Unit1.dfm=J:\Delphi\ProductsLists\Forms\TableCreationMaster.dfm</Transaction>
     <Transaction>1899.12.30 00:00:00.000.653,J:\Delphi\ProductsLists\Unit1.dfm=J:\Delphi\ProductsLists\TableForm.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.038,J:\Delphi\ProductsLists\Unit1.dfm=J:\Delphi\ProductsLists\Forms\TableCreationMasterForm.dfm</Transaction>
     <Transaction>1899.12.30 00:00:00.000.700,J:\Delphi\ProductsLists\TableForm.pas=J:\Delphi\ProductsLists\Table.pas</Transaction>
-    <Transaction>2021.10.28 10:28:35.906,=J:\Delphi\delphi-excel\Utils\InsertRowCommand.pas</Transaction>
-    <Transaction>2021.10.28 10:31:44.678,=J:\Delphi\delphi-excel\Utils\RowCommand.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.906,=J:\Delphi\delphi-excel\Utils\InsertRowCommand.pas</Transaction>
+    <Transaction>2021.10.29 11:34:45.290,=J:\Delphi\delphi-excel\Utils\ColCommand.pas</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="Forms"/>
@@ -63,6 +64,7 @@
     <File Path="ModelSupport_Project\default.txaPackage"/>
     <File Path="ModelSupport_Project\default.txvpck"/>
     <File Path="Utils"/>
+    <File Path="Utils\ColCommand.pas"/>
     <File Path="Utils\CommandManager.pas"/>
     <File Path="Utils\FileSystem.pas"/>
     <File Path="Utils\GridCellCommand.pas"/>

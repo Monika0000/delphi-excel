@@ -287,7 +287,7 @@ object TableForm: TTableForm
   end
   object TablePopupMenu: TPopupMenu
     OwnerDraw = True
-    Left = 24
+    Left = 16
     object N8: TMenuItem
       Caption = #1042#1089#1090#1072#1074#1082#1072
       object InsertRowDown: TMenuItem
@@ -300,19 +300,22 @@ object TableForm: TTableForm
       end
       object InsertColLeft: TMenuItem
         Caption = #1042#1089#1090#1072#1074#1080#1090#1100' '#1089#1090#1086#1083#1073#1077#1094' '#1089#1083#1077#1074#1072
+        OnClick = InsertColLeftClick
       end
       object InsertColRight: TMenuItem
         Caption = #1042#1089#1090#1072#1074#1080#1090#1100' '#1089#1090#1086#1083#1073#1077#1094' '#1089#1087#1088#1072#1074#1072
+        OnClick = InsertColRightClick
       end
     end
     object N9: TMenuItem
       Caption = #1059#1076#1072#1083#1077#1085#1080#1077
-      object N5: TMenuItem
+      object DeleteRow: TMenuItem
         Caption = #1059#1076#1072#1083#1080#1090#1100' '#1089#1090#1088#1086#1082#1091
-        OnClick = DeleteRowButton
+        OnClick = DeleteRowClick
       end
-      object N7: TMenuItem
+      object DeleteCol: TMenuItem
         Caption = #1059#1076#1072#1083#1080#1090#1100' '#1089#1090#1086#1083#1073#1077#1094
+        OnClick = DeleteColClick
       end
     end
   end
