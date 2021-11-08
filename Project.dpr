@@ -17,7 +17,8 @@ uses
   FileSystem in 'Utils\FileSystem.pas',
   StringUtils in 'Utils\StringUtils.pas',
   RowCommand in 'Utils\RowCommand.pas',
-  ColCommand in 'Utils\ColCommand.pas';
+  ColCommand in 'Utils\ColCommand.pas',
+  TableMenu in 'Menu\TableMenu.pas';
 
 {$R *.res}
 
@@ -28,13 +29,13 @@ begin
   CommandManager.Init();
 
   FormManager.gTableForm := TTableForm.Create(Application);
-  FormManager.gTableForm.SetMenu(MainMenu.InitMainMenu);
+  FormManager.gTableForm.SetMenu(TableMenu.InitMenu);
 
   FormManager.gMainForm := TMainForm.Create(Application);
-  FormManager.gMainForm.SetMenu(MainMenu.InitMainMenu);
+  FormManager.gMainForm.SetMenu(MainMenu.InitMenu);
 
   FormManager.gTableMasterForm := TTableMasterForm.Create(Application);
-  FormManager.gTableMasterForm.SetMenu(MainMenu.InitMainMenu);
+  FormManager.gTableMasterForm.SetMenu(MainMenu.InitMenu);
 
   FormManager.Open(FormManager.TType.Main);
 

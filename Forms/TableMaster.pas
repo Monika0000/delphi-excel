@@ -95,7 +95,7 @@ begin
 
   TemplatesListBox.Clear();
 
-  for var path in TDirectory.GetFiles(FileSystem.ResourcesFolder + '\Templates') do begin
+  for var path in TDirectory.GetFiles(FileSystem.GetExeFolder() + FileSystem.ResourcesFolder + '\Templates') do begin
     var _file := TStreamReader.Create(path, TEncoding.UTF8);
 
     try

@@ -5,7 +5,8 @@ interface
 uses
   MenuManager, BasicForm, System.Classes, Vcl.Controls, Vcl.Grids, Winapi.Windows,
   Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, System.SysUtils, CommandManager, GridCellCommand,
-  Vcl.Menus, Types, RowCommand, ColCommand;
+  Vcl.Menus, Types, RowCommand, ColCommand, FileSystem, System.JSON,
+  Vcl.ExtCtrls;
 
 type
   TTableForm = class(BasicForm.TIBasicForm)
@@ -19,8 +20,10 @@ type
     DeleteCol: TMenuItem;
     N8: TMenuItem;
     N9: TMenuItem;
+    Panel1: TPanel;
+    CellEdit: TEdit;
+    TableGrid1: TStringGrid;
     procedure FormShow(Sender: TObject);
-    procedure FormResize(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SetSize(rows, cols: Integer);
     procedure TableGridSetEditText(Sender: TObject; ACol, ARow: Integer;
@@ -37,24 +40,48 @@ type
     procedure InsertColRightClick(Sender: TObject);
     procedure DeleteRowClick(Sender: TObject);
     procedure DeleteColClick(Sender: TObject);
+    procedure CellEditChange(Sender: TObject);
   private
     procedure DeselectCells();
     procedure EnumerateRows();
     procedure EnumerateCols();
+    procedure UpdateCellEdit();
+    procedure UpdateVisible(cell: TPoint);
   private
     var _popupCell: TPoint;
     var _lastCellValue: string;
+    var _selectedCell: TPoint;
     var _colNames: TArray<string>;
     var _repeatNames: boolean;
     var _defaultNames: boolean;
   public
     procedure New(rows, cols: integer; _repeat: boolean; colNames: TArray<string> = nil);
-    procedure Load(path: string);
-    procedure Save(path: string);
+    procedure Load();
+    procedure Save();
     procedure Clear();
   end;
 
 implementation
+
+procedure TTableForm.UpdateVisible(cell: TPoint);
+begin
+  if cell = TPoint.Create(-1, -1) then
+  begin
+    // all
+  end else begin
+
+  end;
+end;
+
+procedure TTableForm.UpdateCellEdit();
+begin
+  if (_selectedCell.X = -1) or (_selectedCell.Y = -1) then begin
+    CellEdit.Text := '';
+    exit;
+  end;
+
+  CellEdit.Text := TableGrid.Cols[_selectedCell.X][_selectedCell.Y];
+end;
 
 procedure TTableForm.EnumerateCols();
 begin
@@ -85,6 +112,8 @@ begin
     Bottom := -1;
   end;
   TableGrid.Selection := rect;
+  _selectedCell := TPoint.Create(-1, -1);
+  UpdateCellEdit();
 end;
 
 procedure TTableForm.DeleteColClick(Sender: TObject);
@@ -198,12 +227,6 @@ begin
   TableGrid.Options := TableGrid.Options + [goEditing] + [goColSizing] + [goTabs];
 end;
 
-procedure TTableForm.FormResize(Sender: TObject);
-begin
-  TableGrid.Width := Self.Width - 13;
-  TableGrid.Height := Self.Height - 58;
-end;
-
 procedure TTableForm.New(rows, cols: integer; _repeat: boolean; colNames: TArray<string>);
 begin
   CommandManager.gCmdManager.ClearAll();
@@ -228,6 +251,7 @@ begin
 
   EnumerateRows();
   EnumerateCols();
+  DeselectCells();
 end;
 
 procedure TTableForm.SetSize(rows: Integer; cols: Integer);
@@ -235,14 +259,41 @@ begin
   //
 end;
 
-procedure TTableForm.Load(path: string);
+procedure TTableForm.Load();
 begin
-  //
+  var filename := FileSystem.DialogLoadFile();
+  if filename = '' then
+    exit;
+
+  var _file := TStreamReader.Create(filename, TEncoding.UTF8);
+  try
+    var json := TJSonObject.ParseJSONValue(_file.ReadToEnd) as TJSONObject;  
+
+    Self._repeatNames := json.GetValue('useRepeatNames').Value = 'true';
+    Self._defaultNames := json.GetValue('useDefaultNames').Value = 'true';
+                                                       
+    FileSystem.JsonToStringGrid(Self.TableGrid, json);
+
+    if _defaultNames then
+      EnumerateCols();
+
+    EnumerateRows();
+    DeselectCells();
+    
+    json.Free;
+  except
+    ShowMessage('Failed to load save! Path: ' + filename);  
+  end;
+
+  FreeAndNil(_file);
 end;
 
-procedure TTableForm.Save(path: string);
+procedure TTableForm.Save();
 begin
-  //
+  var json := FileSystem.StringGridToJson(TableGrid);
+  json.AddPair('useDefaultNames', _defaultNames);
+  json.AddPair('useRepeatNames', _repeatNames);
+  FileSystem.DialogSaveFile(json.ToString());
 end;
 
 procedure TTableForm.TableGridContextPopup(Sender: TObject; MousePos: TPoint;
@@ -258,7 +309,11 @@ begin
     if key = 90 then // Z
       CommandManager.gCmdManager.Undo()
     else if key = 89 then // Y
-      CommandManager.gCmdManager.Redo();
+      CommandManager.gCmdManager.Redo()
+    else if key = 83 then
+      Self.Save()
+    else if key = 76 then
+      Self.Load();
   end;
 end;
 
@@ -266,11 +321,16 @@ procedure TTableForm.TableGridSelectCell(Sender: TObject; ACol, ARow: Integer;
   var CanSelect: Boolean);
 begin
   _lastCellValue := TableGrid.Rows[ARow][ACol];
+  _selectedCell := TPoint.Create(ACol, ARow);
+  UpdateCellEdit();
 end;
 
 procedure TTableForm.TableGridSetEditText(Sender: TObject; ACol, ARow: Integer; const Value: string);
 begin
   var top := gCmdManager.Top();
+
+  if Sender <> nil then
+    UpdateCellEdit();
 
   if (top <> nil) and (top is GridCellCommand.TGridCellCommand) then
   begin
@@ -287,9 +347,21 @@ begin
     ACol,
     ARow,
     _lastCellValue,
-    Value);
+    Value,
+    procedure() begin
+      UpdateCellEdit();
+    end);
 
   CommandManager.gCmdManager.Send(cmd);
+end;
+
+procedure TTableForm.CellEditChange(Sender: TObject);
+begin
+  if (_selectedCell.X = -1) or (_selectedCell.Y = -1) or (not CellEdit.Focused) then
+    exit;
+
+  TableGrid.Cols[_selectedCell.X][_selectedCell.Y] := CellEdit.Text;
+  TableGridSetEditText(nil, _selectedCell.X, _selectedCell.Y, CellEdit.Text);
 end;
 
 procedure TTableForm.Clear();
@@ -298,6 +370,8 @@ begin
     for var i := FixedCols to ColCount - 1 do
       for var j := FixedRows to RowCount - 1 do
         Cells[i, j] := '';
+
+  DeselectCells();
 end;
 
 {$R *.dfm}

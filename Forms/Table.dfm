@@ -11,279 +11,307 @@ object TableForm: TTableForm
   Font.Name = 'Segoe UI'
   Font.Style = []
   OnCreate = FormCreate
-  OnResize = FormResize
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 15
-  object TableGrid: TStringGrid
+  object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 708
-    Height = 462
-    ColCount = 255
-    RowCount = 255
-    ParentColor = True
+    Width = 716
+    Height = 466
+    Align = alClient
+    Caption = 'Panel1'
     TabOrder = 0
-    OnContextPopup = TableGridContextPopup
-    OnKeyDown = TableGridKeyDown
-    OnSelectCell = TableGridSelectCell
-    OnSetEditText = TableGridSetEditText
-    RowHeights = (
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24
-      24)
+    object TableGrid: TStringGrid
+      Left = 1
+      Top = 24
+      Width = 714
+      Height = 441
+      Align = alClient
+      ColCount = 255
+      RowCount = 255
+      ParentColor = True
+      TabOrder = 0
+      OnContextPopup = TableGridContextPopup
+      OnKeyDown = TableGridKeyDown
+      OnSelectCell = TableGridSelectCell
+      OnSetEditText = TableGridSetEditText
+      ExplicitLeft = 0
+      ExplicitTop = 30
+      RowHeights = (
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24
+        24)
+    end
+    object CellEdit: TEdit
+      Left = 1
+      Top = 1
+      Width = 714
+      Height = 23
+      Align = alTop
+      TabOrder = 1
+      OnChange = CellEditChange
+    end
+  end
+  object TableGrid1: TStringGrid
+    Left = 656
+    Top = 408
+    Width = 40
+    Height = 40
+    TabOrder = 1
+    Visible = False
   end
   object TablePopupMenu: TPopupMenu
     OwnerDraw = True
