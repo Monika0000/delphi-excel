@@ -6,11 +6,11 @@ uses
   MenuManager, BasicForm, System.Classes, Vcl.Controls, Vcl.Grids, Winapi.Windows,
   Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, System.SysUtils, CommandManager, GridCellCommand,
   Vcl.Menus, Types, RowCommand, ColCommand, FileSystem, System.JSON,
-  Vcl.ExtCtrls;
+  Vcl.ExtCtrls, Expression;
 
 type
   TTableForm = class(BasicForm.TIBasicForm)
-    TableGrid: TStringGrid;
+    VisibleTableGrid: TStringGrid;
     TablePopupMenu: TPopupMenu;
     InsertRowUp: TMenuItem;
     InsertColLeft: TMenuItem;
@@ -22,17 +22,17 @@ type
     N9: TMenuItem;
     Panel1: TPanel;
     CellEdit: TEdit;
-    TableGrid1: TStringGrid;
+    TableGrid: TStringGrid;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SetSize(rows, cols: Integer);
-    procedure TableGridSetEditText(Sender: TObject; ACol, ARow: Integer;
-      const Value: string);
-    procedure TableGridSelectCell(Sender: TObject; ACol, ARow: Integer;
+    procedure VisibleTableGridSetEditText(Sender: TObject; ACol, ARow: Integer;
+      Value: string);
+    procedure VisibleTableGridSelectCell(Sender: TObject; ACol, ARow: Integer;
       var CanSelect: Boolean);
-    procedure TableGridKeyDown(Sender: TObject; var Key: Word;
+    procedure VisibleTableGridKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure TableGridContextPopup(Sender: TObject; MousePos: TPoint;
+    procedure VisibleTableGridContextPopup(Sender: TObject; MousePos: TPoint;
       var Handled: Boolean);
     procedure InsertRowDownClick(Sender: TObject);
     procedure InsertRowUpClick(Sender: TObject);
@@ -67,9 +67,13 @@ procedure TTableForm.UpdateVisible(cell: TPoint);
 begin
   if cell = TPoint.Create(-1, -1) then
   begin
-    // all
+    VisibleTableGrid.ColCount := TableGrid.ColCount;
+    VisibleTableGrid.RowCount := TableGrid.RowCount;
+    for var i := 0 to VisibleTableGrid.ColCount do
+      for var j := 0 to VisibleTableGrid.RowCount do
+        Expression.MathCell(TableGrid, VisibleTableGrid, TPoint.Create(i, j))
   end else begin
-
+    Expression.MathCell(TableGrid, VisibleTableGrid, cell);
   end;
 end;
 
@@ -127,6 +131,7 @@ begin
       DeselectCells();
       if _defaultNames then
         EnumerateCols();
+      UpdateVisible(TPoint.Create(-1, -1));
     end);
 
   cmd.Redo();
@@ -143,6 +148,7 @@ begin
     begin
       EnumerateRows();
       DeselectCells();
+      UpdateVisible(TPoint.Create(-1, -1));
     end);
 
   cmd.Redo();
@@ -161,6 +167,7 @@ procedure TTableForm.FormShow(Sender: TObject);
 begin
   MenuManager.InitMenu(Self, _menu);
   DeselectCells();
+  UpdateVisible(TPoint.Create(-1, -1));
 end;
 
 procedure TTableForm.InsertColLeftClick(Sender: TObject);
@@ -170,6 +177,7 @@ begin
       DeselectCells();
       if _defaultNames then
         EnumerateCols();
+      UpdateVisible(TPoint.Create(-1, -1));
     end, ColCommand.Left
   );
 
@@ -184,6 +192,7 @@ begin
       DeselectCells();
       if _defaultNames then
         EnumerateCols();
+      UpdateVisible(TPoint.Create(-1, -1));
     end, ColCommand.Right
   );
 
@@ -197,6 +206,7 @@ begin
     begin
       EnumerateRows();
       DeselectCells();
+      UpdateVisible(TPoint.Create(-1, -1));
     end, RowCommand.Down
   );
 
@@ -214,6 +224,7 @@ begin
     begin
       EnumerateRows();
       DeselectCells();
+      UpdateVisible(TPoint.Create(-1, -1));
     end, RowCommand.Up
   );
 
@@ -223,8 +234,8 @@ end;
 
 procedure TTableForm.FormCreate(Sender: TObject);
 begin
-  TableGrid.PopupMenu := TablePopupMenu;
-  TableGrid.Options := TableGrid.Options + [goEditing] + [goColSizing] + [goTabs];
+  VisibleTableGrid.PopupMenu := TablePopupMenu;
+  VisibleTableGrid.Options := TableGrid.Options + [goEditing] + [goColSizing] + [goTabs];
 end;
 
 procedure TTableForm.New(rows, cols: integer; _repeat: boolean; colNames: TArray<string>);
@@ -252,6 +263,7 @@ begin
   EnumerateRows();
   EnumerateCols();
   DeselectCells();
+  UpdateVisible(TPoint.Create(-1, -1));
 end;
 
 procedure TTableForm.SetSize(rows: Integer; cols: Integer);
@@ -279,6 +291,7 @@ begin
 
     EnumerateRows();
     DeselectCells();
+    UpdateVisible(TPoint.Create(-1, -1));
     
     json.Free;
   except
@@ -296,13 +309,13 @@ begin
   FileSystem.DialogSaveFile(json.ToString());
 end;
 
-procedure TTableForm.TableGridContextPopup(Sender: TObject; MousePos: TPoint;
+procedure TTableForm.VisibleTableGridContextPopup(Sender: TObject; MousePos: TPoint;
   var Handled: Boolean);
 begin
   (Sender as TStringGrid).MouseToCell(MousePos.X, MousePos.Y, _popupCell.X, _popupCell.Y);
 end;
 
-procedure TTableForm.TableGridKeyDown(Sender: TObject; var Key: Word;
+procedure TTableForm.VisibleTableGridKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   if (GetKeyState(VK_CONTROL) < 0) then begin
@@ -317,20 +330,31 @@ begin
   end;
 end;
 
-procedure TTableForm.TableGridSelectCell(Sender: TObject; ACol, ARow: Integer;
+procedure TTableForm.VisibleTableGridSelectCell(Sender: TObject; ACol, ARow: Integer;
   var CanSelect: Boolean);
 begin
   _lastCellValue := TableGrid.Rows[ARow][ACol];
+
   _selectedCell := TPoint.Create(ACol, ARow);
   UpdateCellEdit();
 end;
 
-procedure TTableForm.TableGridSetEditText(Sender: TObject; ACol, ARow: Integer; const Value: string);
+procedure TTableForm.VisibleTableGridSetEditText(Sender: TObject; ACol, ARow: Integer; Value: string);
 begin
+  if (Value.IndexOf('=') = 0) and (Sender <> nil) then begin
+    ShowMessage('Формулы можно вводить только в верхнем поле!');
+    VisibleTableGrid.Cols[ACol][ARow] := '';
+    Value := '';
+  end;
+
+  TableGrid.Cols[ACol][ARow] := Value;
+
   var top := gCmdManager.Top();
 
   if Sender <> nil then
-    UpdateCellEdit();
+    UpdateCellEdit()
+  else
+    UpdateVisible(TPoint.Create(ACol, ARow));
 
   if (top <> nil) and (top is GridCellCommand.TGridCellCommand) then
   begin
@@ -350,6 +374,7 @@ begin
     Value,
     procedure() begin
       UpdateCellEdit();
+      UpdateVisible(TPoint.Create(ACol, ARow));
     end);
 
   CommandManager.gCmdManager.Send(cmd);
@@ -360,8 +385,7 @@ begin
   if (_selectedCell.X = -1) or (_selectedCell.Y = -1) or (not CellEdit.Focused) then
     exit;
 
-  TableGrid.Cols[_selectedCell.X][_selectedCell.Y] := CellEdit.Text;
-  TableGridSetEditText(nil, _selectedCell.X, _selectedCell.Y, CellEdit.Text);
+  VisibleTableGridSetEditText(nil, _selectedCell.X, _selectedCell.Y, CellEdit.Text);
 end;
 
 procedure TTableForm.Clear();
@@ -372,6 +396,7 @@ begin
         Cells[i, j] := '';
 
   DeselectCells();
+  UpdateVisible(TPoint.Create(-1, -1));
 end;
 
 {$R *.dfm}

@@ -53,7 +53,7 @@ begin
     end;
 
     // ищем нужный шаблон
-    for var path in TDirectory.GetFiles(FileSystem.ResourcesFolder + '\Templates') do begin
+    for var path in TDirectory.GetFiles(FileSystem.GetExeFolder() + FileSystem.ResourcesFolder + '\Templates') do begin
       var _file := TStreamReader.Create(path, TEncoding.UTF8);
       try
         if _file.ReadLine = TemplatesListBox.Items[TemplatesListBox.ItemIndex] then

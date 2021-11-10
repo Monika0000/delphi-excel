@@ -1,4 +1,4 @@
-program Project;
+program Dexel;
 
 uses
   Vcl.Menus,
@@ -18,13 +18,18 @@ uses
   StringUtils in 'Utils\StringUtils.pas',
   RowCommand in 'Utils\RowCommand.pas',
   ColCommand in 'Utils\ColCommand.pas',
-  TableMenu in 'Menu\TableMenu.pas';
+  TableMenu in 'Menu\TableMenu.pas' {$R *.res},
+  Expression in 'Utils\Expression.pas',
+  About in 'Forms\About.pas' {AboutForm},
+  Helper in 'Forms\Helper.pas' {HelperForm};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := False;
+
+  Application.Icon.LoadFromFile(FileSystem.GetExeFolder() + FileSystem.ResourcesFolder + '\dexel.ico');
 
   CommandManager.Init();
 
@@ -36,6 +41,12 @@ begin
 
   FormManager.gTableMasterForm := TTableMasterForm.Create(Application);
   FormManager.gTableMasterForm.SetMenu(MainMenu.InitMenu);
+
+  FormManager.gAboutForm := TAboutForm.Create(Application);
+  FormManager.gAboutForm.SetMenu(MainMenu.InitMenu);
+
+  FormManager.gHelperForm := THelperForm.Create(Application);
+  FormManager.gHelperForm.SetMenu(MainMenu.InitMenu);
 
   FormManager.Open(FormManager.TType.Main);
 

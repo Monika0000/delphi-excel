@@ -10,6 +10,8 @@ procedure InitMenu(menu: TMainMenu);
 procedure LoadMenuButton(Sender: TObject);
 procedure CloseMenuButton(Sender: TObject);
 procedure NewMenuButton(Sender: TObject);
+procedure AboutMenuButton(Sender: TObject);
+procedure HelperMenuButton(Sender: TObject);
 
 implementation
 
@@ -31,6 +33,16 @@ begin
   FormManager.Open(FormManager.TType.Main);
 end;
 
+procedure AboutMenuButton(Sender: TObject);
+begin
+  FormManager.Open(FormManager.TType.About);
+end;
+
+procedure HelperMenuButton(Sender: TObject);
+begin
+  FormManager.Open(FormManager.TType.Helper);
+end;
+
 procedure InitMenu(menu: TMainMenu);
 begin
   var fileMenu := MenuManager.AddSubmenu(menu, 'File');
@@ -38,7 +50,12 @@ begin
   fileMenu.Add(AddSubmenu(fileMenu, 'Load', LoadMenuButton));
   fileMenu.Add(AddSubmenu(fileMenu, 'Close', CloseMenuButton));
 
+  var helpMenu := MenuManager.AddSubmenu(menu, 'Help');
+  helpMenu.Add(AddSubmenu(helpMenu, 'About', AboutMenuButton));
+  helpMenu.Add(AddSubmenu(helpMenu, 'Helper', HelperMenuButton));
+
   gCurrentMenu.Items.Add(fileMenu);
+  gCurrentMenu.Items.Add(helpMenu);
 end;
 
 end.

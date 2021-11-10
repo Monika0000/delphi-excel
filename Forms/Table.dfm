@@ -22,7 +22,7 @@ object TableForm: TTableForm
     Align = alClient
     Caption = 'Panel1'
     TabOrder = 0
-    object TableGrid: TStringGrid
+    object VisibleTableGrid: TStringGrid
       Left = 1
       Top = 24
       Width = 714
@@ -32,12 +32,10 @@ object TableForm: TTableForm
       RowCount = 255
       ParentColor = True
       TabOrder = 0
-      OnContextPopup = TableGridContextPopup
-      OnKeyDown = TableGridKeyDown
-      OnSelectCell = TableGridSelectCell
-      OnSetEditText = TableGridSetEditText
-      ExplicitLeft = 0
-      ExplicitTop = 30
+      OnContextPopup = VisibleTableGridContextPopup
+      OnKeyDown = VisibleTableGridKeyDown
+      OnSelectCell = VisibleTableGridSelectCell
+      OnSetEditText = VisibleTableGridSetEditText
       RowHeights = (
         24
         24
@@ -305,7 +303,7 @@ object TableForm: TTableForm
       OnChange = CellEditChange
     end
   end
-  object TableGrid1: TStringGrid
+  object TableGrid: TStringGrid
     Left = 656
     Top = 408
     Width = 40
