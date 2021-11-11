@@ -286,6 +286,9 @@ begin
                                                        
     FileSystem.JsonToStringGrid(Self.TableGrid, json);
 
+    for var col := 0 to TableGrid.ColCount - 1 do
+      VisibleTableGrid.ColWidths[col] := TableGrid.ColWidths[col];
+
     if _defaultNames then
       EnumerateCols();
 
@@ -303,10 +306,16 @@ end;
 
 procedure TTableForm.Save();
 begin
+  for var col := 0 to TableGrid.ColCount - 1 do
+    TableGrid.ColWidths[col] := VisibleTableGrid.ColWidths[col];
+
   var json := FileSystem.StringGridToJson(TableGrid);
+
   json.AddPair('useDefaultNames', _defaultNames);
   json.AddPair('useRepeatNames', _repeatNames);
-  FileSystem.DialogSaveFile(json.ToString());
+  FileSystem.DialogSaveFile(FileSystem.FormatJSON(json.ToString()));
+
+  FreeAndNil(json);
 end;
 
 procedure TTableForm.VisibleTableGridContextPopup(Sender: TObject; MousePos: TPoint;
@@ -390,6 +399,9 @@ end;
 
 procedure TTableForm.Clear();
 begin
+  for var col := 0 to TableGrid.ColCount - 1 do
+    VisibleTableGrid.ColWidths[col] := VisibleTableGrid.DefaultColWidth;
+
   with TableGrid do
     for var i := FixedCols to ColCount - 1 do
       for var j := FixedRows to RowCount - 1 do

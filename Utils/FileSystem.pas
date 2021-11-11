@@ -2,7 +2,7 @@ unit FileSystem;
 
 interface
 
-uses Json, Vcl.Grids, Vcl.ExtDlgs, Forms, System.SysUtils, System.Classes, Vcl.Dialogs;
+uses Json, Vcl.Grids, Vcl.ExtDlgs, Forms, System.SysUtils, System.Classes, Vcl.Dialogs, REST.Json;
 
 const ResourcesFolder = '..\..\Resources';
 const FileExtension = 'dxcl';
@@ -15,7 +15,16 @@ function DialogLoadFile(): string; // filename
 
 function GetExeFolder(): string;
 
+function FormatJSON(json: String): String;
+
 implementation
+
+function FormatJSON(json: String): String;
+begin
+  var tmpJson := TJSONObject.ParseJSONValue(json);
+  Result := TJson.Format(tmpJson);
+  FreeAndNil(tmpJson);
+end;
 
 function GetExeFolder(): string;
 begin
@@ -33,6 +42,14 @@ begin
     for var col := 0 to grid.ColCount - 1 do
       for var row := 0 to grid.RowCount - 1 do
         grid.Cols[col][row] := (matrix[col] as TJsonArray)[row].Value;
+
+    var colsWidth := json.FindValue('ColsWidth') as TJsonArray;
+    if Assigned(colsWidth) then begin
+      for var col := 0 to grid.ColCount - 1 do
+        grid.ColWidths[col] := StrToInt(colsWidth[col].Value);
+    end else
+      for var col := 0 to grid.ColCount - 1 do
+        grid.ColWidths[col] := grid.DefaultColWidth;
 
     JsonToStringGrid := true;
   except
@@ -93,9 +110,15 @@ begin
 
   var jsonGrid := TJSONObject.Create();
 
+  var ColsWidth := TJSONArray.Create;
+  for var col: integer := 0 to grid.ColCount - 1 do begin
+    ColsWidth.AddElement(TJSONNumber.Create(grid.ColWidths[col]));
+  end;
+
   jsonGrid.AddPair('ColCount', grid.ColCount);
   jsonGrid.AddPair('RowCount', grid.RowCount);
   jsonGrid.AddPair('grid', jsonCols);
+  jsonGrid.AddPair('ColsWidth', ColsWidth);
 
   StringGridToJson := jsonGrid;
 end;

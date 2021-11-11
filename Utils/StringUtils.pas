@@ -2,10 +2,26 @@ unit StringUtils;
 
 interface
 
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, ShellApi;
+
 function ConvertANSItoASCII(s: string): string;
 function ConvertASCIItoANSI(a: string): string;
+function StringToPWide(sStr: string): PWideChar;
 
 implementation
+
+function StringToPWide(sStr: string): PWideChar;
+begin
+ var iSize := (Length(sStr) + 1) * 2;
+
+ var pw := AllocMem(iSize);
+
+ MultiByteToWideChar(CP_ACP, 0, PAnsiChar(sStr), iSize, pw, iSize);
+
+ Result := pw;
+end;
+
 
 function ConvertANSItoASCII(s: string): string;
 begin
