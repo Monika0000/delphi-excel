@@ -22,9 +22,10 @@ end;
 
 procedure LoadMenuButton(Sender: TObject);
 begin
-  TTableForm(FormManager.gTableForm).Load();
-  FormManager.Open(FormManager.TType.Table);
-  CommandManager.gCmdManager.ClearAll();
+  if TTableForm(FormManager.gTableForm).Load() then begin
+    FormManager.Open(FormManager.TType.Table);
+    CommandManager.gCmdManager.ClearAll();
+  end;
 end;
 
 procedure CloseMenuButton(Sender: TObject);
@@ -45,16 +46,10 @@ end;
 
 procedure InitMenu(menu: TMainMenu);
 begin
-  var fileMenu := MenuManager.AddSubmenu(menu, 'File');
-  fileMenu.Add(AddSubmenu(fileMenu, 'New', NewMenuButton));
-  fileMenu.Add(AddSubmenu(fileMenu, 'Load', LoadMenuButton));
-  fileMenu.Add(AddSubmenu(fileMenu, 'Close', CloseMenuButton));
-
   var helpMenu := MenuManager.AddSubmenu(menu, 'Help');
   helpMenu.Add(AddSubmenu(helpMenu, 'About', AboutMenuButton));
   helpMenu.Add(AddSubmenu(helpMenu, 'Helper', HelperMenuButton));
 
-  gCurrentMenu.Items.Add(fileMenu);
   gCurrentMenu.Items.Add(helpMenu);
 end;
 

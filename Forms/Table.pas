@@ -56,7 +56,7 @@ type
     var _defaultNames: boolean;
   public
     procedure New(rows, cols: integer; _repeat: boolean; colNames: TArray<string> = nil);
-    procedure Load();
+    function Load(): boolean;
     procedure Save();
     procedure Clear();
   end;
@@ -271,11 +271,13 @@ begin
   //
 end;
 
-procedure TTableForm.Load();
+function TTableForm.Load(): boolean;
 begin
   var filename := FileSystem.DialogLoadFile();
-  if filename = '' then
+  if filename = '' then begin
+    Result := false;
     exit;
+  end;
 
   var _file := TStreamReader.Create(filename, TEncoding.UTF8);
   try
@@ -298,9 +300,13 @@ begin
     
     json.Free;
   except
-    ShowMessage('Failed to load save! Path: ' + filename);  
+    ShowMessage('Failed to load save! Path: ' + filename);
+    Result := false;
+    FreeAndNil(_file);
+    exit;
   end;
 
+  Result := true;
   FreeAndNil(_file);
 end;
 

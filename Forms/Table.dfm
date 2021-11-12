@@ -28,9 +28,13 @@ object TableForm: TTableForm
       Width = 714
       Height = 441
       Align = alClient
+      Color = clSilver
       ColCount = 255
+      DrawingStyle = gdsClassic
+      FixedColor = clMedGray
       RowCount = 255
-      ParentColor = True
+      GradientEndColor = clWhite
+      GradientStartColor = clGray
       TabOrder = 0
       OnContextPopup = VisibleTableGridContextPopup
       OnKeyDown = VisibleTableGridKeyDown
@@ -299,6 +303,7 @@ object TableForm: TTableForm
       Width = 714
       Height = 23
       Align = alTop
+      Color = 14078931
       TabOrder = 1
       OnChange = CellEditChange
     end

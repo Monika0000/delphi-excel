@@ -233,13 +233,49 @@ begin
   end;
 end;
 
+function ReplaceCells(grid: &TStringGrid; var expr: &string): boolean;
+begin
+  try
+    var openId := expr.IndexOf('[');
+    while openId >= 0 do begin
+      var closeId := expr.IndexOf(']');
+
+      if closeId < 0 then
+        raise Exception.Create('"]" was not found');
+
+      var args := expr.Substring(openId + 1, (closeId - openId) - 1).Split([':']);
+
+      expr := expr.Remove(openId, (closeId - openId) + 1);
+
+      var cell := grid.Rows[StrToInt(args[0])][StrToInt(args[1])];
+      if cell[1] = '=' then
+        cell := cell.Substring(1, Length(cell) - 1);
+
+      expr := expr.Insert(openId, '(' + cell + ')');
+
+      openId := expr.IndexOf('[');
+    end;
+
+    ReplaceCells := true;
+  except
+    on ex: Exception do begin
+      expr := '#' + ex.Message + '#';
+      ReplaceCells := false;
+    end;
+  end;
+end;
+
 procedure MathCell(grid, visible: TStringGrid; cell: TPoint);
 begin
   var value := grid.Cols[cell.x][cell.y];
-  if value.IndexOf('=') = 0 then
-    visible.Cols[cell.x][cell.y] := MathExpression(value.Substring(1, Length(value) - 1))
-  else
-    visible.Cols[cell.x][cell.y] := value;
+  if value.IndexOf('=') = 0 then begin
+    if ReplaceCells(grid, value) then begin
+      visible.Cols[cell.x][cell.y] := MathExpression(value.Substring(1, Length(value) - 1));
+      exit;
+    end;
+  end;
+
+  visible.Cols[cell.x][cell.y] := value;
 end;
 
 end.

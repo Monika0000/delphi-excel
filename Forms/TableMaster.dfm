@@ -64,6 +64,8 @@ object TableMasterForm: TTableMasterForm
       Color = clSilver
       ParentBackground = False
       TabOrder = 1
+      ExplicitLeft = 228
+      ExplicitTop = -7
       object Botttom: TPanel
         Left = 1
         Top = 304
@@ -82,17 +84,24 @@ object TableMasterForm: TTableMasterForm
           TabOrder = 0
           object CreateButton: TButton
             Left = 1
-            Top = 1
+            Top = 26
             Width = 270
             Height = 56
             Align = alTop
             Caption = #1057#1086#1079#1076#1072#1090#1100
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -19
+            Font.Name = 'Segoe UI'
+            Font.Style = []
+            ParentFont = False
             TabOrder = 0
             OnClick = CreateButtonClick
+            ExplicitTop = 1
           end
           object UseTemplateCheckBox: TCheckBox
             Left = 12
-            Top = 81
+            Top = 88
             Width = 149
             Height = 17
             Caption = #1048#1089#1087#1086#1083#1100#1079#1086#1074#1072#1090#1100' '#1096#1072#1073#1083#1086#1085
@@ -101,11 +110,22 @@ object TableMasterForm: TTableMasterForm
           end
           object EnableRepeatsCheckBox: TCheckBox
             Left = 12
-            Top = 111
+            Top = 119
             Width = 237
             Height = 17
             Caption = #1042#1082#1083#1102#1095#1080#1090#1100' '#1087#1086#1074#1090#1086#1088#1077#1085#1080#1077' '#1080#1084#1077#1085' '#1089#1090#1086#1083#1073#1094#1086#1074
             TabOrder = 2
+          end
+          object CancelButton: TButton
+            Left = 1
+            Top = 1
+            Width = 270
+            Height = 25
+            Align = alTop
+            Caption = #1054#1090#1084#1077#1085#1072
+            TabOrder = 3
+            OnClick = CancelButtonClick
+            ExplicitWidth = 272
           end
         end
         object Right: TPanel

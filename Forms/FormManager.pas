@@ -3,7 +3,7 @@ unit FormManager;
 interface
 
 uses
-  BasicForm, Vcl.Forms, Types, Vcl.Dialogs;
+  BasicForm, Vcl.Forms, Types, Vcl.Dialogs, System.Generics.Collections;
 
 type
   TType = (None = 0, Main = 1, Table = 2, TableMaster = 3, About = 4, Helper = 5);
@@ -16,12 +16,32 @@ var
   gHelperForm:      BasicForm.TIBasicForm = nil;
 
 procedure Open(_type: TType);
+procedure Back();
+procedure Init();
 
 implementation
 
 var
   gCurrentType: TType = TType.None;
   gCurrentForm: BasicForm.TIBasicForm = nil;
+  gHistory: TStack<TType>;
+
+procedure Back();
+begin
+  if gHistory.Count <= 1 then begin
+    ShowMessage('History is empty!');
+    exit;
+  end;
+
+  gHistory.Pop; // current form
+
+  Open(gHistory.Pop); // prev form
+end;
+
+procedure Init();
+begin
+  gHistory := TStack<TType>.Create;
+end;
 
 procedure Open(_type: TType);
 begin
@@ -58,6 +78,8 @@ begin
     ShowMessage('Form is nullptr! Terminate...');
     Application.Terminate;
   end;
+
+  gHistory.Push(gCurrentType);
 
   if (fsModal in TForm(gCurrentForm).FormState) then
     gCurrentForm.Show()

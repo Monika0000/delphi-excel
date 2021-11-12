@@ -7,7 +7,7 @@ uses
   MainMenu in 'Menu\MainMenu.pas',
   MenuManager in 'Menu\MenuManager.pas',
   FormManager in 'Forms\FormManager.pas',
-  ProductsLists in 'Forms\ProductsLists.pas' {MainForm},
+  MainForm in 'Forms\MainForm.pas' {MainForm},
   Table in 'Forms\Table.pas' {TableForm},
   BasicForm in 'Forms\BasicForm.pas',
   CommandManager in 'Utils\CommandManager.pas',
@@ -32,6 +32,7 @@ begin
   Application.Icon.LoadFromFile(FileSystem.GetExeFolder() + FileSystem.ResourcesFolder + '\dexel.ico');
 
   CommandManager.Init();
+  FormManager.Init();
 
   FormManager.gTableForm := TTableForm.Create(Application);
   FormManager.gTableForm.SetMenu(TableMenu.InitMenu);

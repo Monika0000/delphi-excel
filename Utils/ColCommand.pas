@@ -36,7 +36,7 @@ begin
       for var j := 0 to RowCount do
         Cols[i + 1][j] := Cols[i][j];
 
-    for var i := 0 to ColCount do
+    for var i := 0 to RowCount do
       Cols[_col][i] := '';
   end;
 end;
@@ -51,7 +51,7 @@ begin
       for var j := 0 to RowCount do
         Cols[i + 1][j] := Cols[i][j];
 
-    for var i := 0 to ColCount do
+    for var i := 0 to RowCount do
       Cols[_col + 1][i] := '';
   end;
 end;

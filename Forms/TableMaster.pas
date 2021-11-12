@@ -24,15 +24,22 @@ type
     Label2: TLabel;
     ColumnsEdit: TEdit;
     Label3: TLabel;
+    CancelButton: TButton;
     procedure FormShow(Sender: TObject);
     procedure UseTemplateCheckBoxClick(Sender: TObject);
     procedure CreateButtonClick(Sender: TObject);
+    procedure CancelButtonClick(Sender: TObject);
   public
   end;
 
 implementation
 
 {$R *.dfm}
+
+procedure TTableMasterForm.CancelButtonClick(Sender: TObject);
+begin
+  FormManager.Back();
+end;
 
 procedure TTableMasterForm.CreateButtonClick(Sender: TObject);
 begin

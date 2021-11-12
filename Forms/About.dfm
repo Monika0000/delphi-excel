@@ -24,26 +24,23 @@ object AboutForm: TAboutForm
     Color = clSilver
     ParentBackground = False
     TabOrder = 0
-    ExplicitWidth = 647
-    ExplicitHeight = 441
     object Panel1: TPanel
       Left = 1
       Top = 1
       Width = 312
       Height = 429
       Align = alLeft
+      Color = clMedGray
       DoubleBuffered = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
       Font.Name = 'Segoe UI'
       Font.Style = []
+      ParentBackground = False
       ParentDoubleBuffered = False
       ParentFont = False
       TabOrder = 0
-      ExplicitLeft = -3
-      ExplicitTop = 0
-      ExplicitHeight = 439
       object Label2: TLabel
         Left = 6
         Top = 8
@@ -79,12 +76,12 @@ object AboutForm: TAboutForm
         WordWrap = True
       end
       object Label3: TLabel
-        Left = 6
-        Top = 198
-        Width = 300
+        Left = 12
+        Top = 203
+        Width = 294
         Height = 40
         Alignment = taCenter
-        Caption = #1040#1074#1090#1086#1088': '#1052#1072#1085#1094#1091#1088#1086#1074' '#1053#1080#1082#1080#1090#1072' ('#1040#1050#1040' Monika)'
+        Caption = #1040#1074#1090#1086#1088': '#1052#1072#1085#1094#1091#1088#1086#1074' '#1053#1080#1082#1080#1090#1072' (a.k.a. Monika)'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -15
@@ -111,6 +108,8 @@ object AboutForm: TAboutForm
         ParentFont = False
         TabOrder = 0
         OnLinkClick = GitHubLinkLabelLinkClick
+        ExplicitLeft = 6
+        ExplicitTop = 408
       end
     end
     object Panel2: TPanel
@@ -120,9 +119,6 @@ object AboutForm: TAboutForm
       Height = 429
       Align = alClient
       TabOrder = 1
-      ExplicitTop = -9
-      ExplicitWidth = 421
-      ExplicitHeight = 439
       object Panel4: TPanel
         Left = 1
         Top = 1
@@ -130,7 +126,6 @@ object AboutForm: TAboutForm
         Height = 48
         Align = alTop
         TabOrder = 0
-        ExplicitWidth = 419
         object Label1: TLabel
           Left = 1
           Top = 1
@@ -145,10 +140,8 @@ object AboutForm: TAboutForm
           Font.Name = 'Source Serif Pro'
           Font.Style = []
           ParentFont = False
-          ExplicitLeft = 313
-          ExplicitTop = 0
-          ExplicitWidth = 400
-          ExplicitHeight = 439
+          ExplicitWidth = 350
+          ExplicitHeight = 33
         end
       end
       object Panel3: TPanel
@@ -158,15 +151,11 @@ object AboutForm: TAboutForm
         Height = 379
         Align = alClient
         TabOrder = 1
-        ExplicitLeft = 2
-        ExplicitTop = 54
-        ExplicitWidth = 419
-        ExplicitHeight = 389
         object Image1: TImage
           Left = 1
           Top = 1
           Width = 413
-          Height = 377
+          Height = 352
           Align = alClient
           Center = True
           Picture.Data = {
@@ -903,6 +892,16 @@ object AboutForm: TAboutForm
           ExplicitTop = -7
           ExplicitWidth = 263
           ExplicitHeight = 271
+        end
+        object BackButton: TButton
+          Left = 1
+          Top = 353
+          Width = 413
+          Height = 25
+          Align = alBottom
+          Caption = #1053#1072#1079#1072#1076
+          TabOrder = 0
+          OnClick = BackButtonClick
         end
       end
     end
