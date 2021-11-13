@@ -11,11 +11,11 @@ type
   TMainForm = class(BasicForm.TIBasicForm)
     NewTableButton: TButton;
     Panel1: TPanel;
-    LoadTableButton: TButton;
     Panel3: TPanel;
     Image1: TImage;
     Panel2: TPanel;
     ExitButton: TButton;
+    LoadTableButton: TButton;
     procedure FormShow(Sender: TObject);
     procedure NewTableButtonClick(Sender: TObject);
     procedure LoadTableButtonClick(Sender: TObject);

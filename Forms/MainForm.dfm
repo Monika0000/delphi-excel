@@ -14,7 +14,6 @@ object MainForm: TMainForm
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
-  ShowHint = False
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 15
@@ -26,9 +25,6 @@ object MainForm: TMainForm
     Align = alClient
     Caption = ' '
     TabOrder = 0
-    ExplicitLeft = 205
-    ExplicitWidth = 614
-    ExplicitHeight = 461
     object Panel3: TPanel
       Left = 1
       Top = 1
@@ -38,8 +34,6 @@ object MainForm: TMainForm
       BorderStyle = bsSingle
       Caption = 'Panel3'
       TabOrder = 0
-      ExplicitWidth = 612
-      ExplicitHeight = 459
       object Image1: TImage
         Left = 1
         Top = 1
@@ -4804,21 +4798,6 @@ object MainForm: TMainForm
     Color = 8618883
     ParentBackground = False
     TabOrder = 1
-    object LoadTableButton: TButton
-      Left = 10
-      Top = 141
-      Width = 185
-      Height = 57
-      Caption = #1047#1072#1075#1088#1091#1079#1080#1090#1100' '#1090#1072#1073#1083#1080#1094#1091
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -19
-      Font.Name = 'Segoe UI'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 0
-      OnClick = LoadTableButtonClick
-    end
     object NewTableButton: TButton
       Left = 10
       Top = 41
@@ -4835,7 +4814,7 @@ object MainForm: TMainForm
       ParentFont = False
       ParentShowHint = False
       ShowHint = False
-      TabOrder = 1
+      TabOrder = 0
       OnClick = NewTableButtonClick
     end
     object ExitButton: TButton
@@ -4850,8 +4829,23 @@ object MainForm: TMainForm
       Font.Name = 'Segoe UI'
       Font.Style = []
       ParentFont = False
-      TabOrder = 2
+      TabOrder = 1
       OnClick = ExitButtonClick
+    end
+    object LoadTableButton: TButton
+      Left = 10
+      Top = 141
+      Width = 185
+      Height = 57
+      Caption = #1047#1072#1075#1088#1091#1079#1080#1090#1100' '#1090#1072#1073#1083#1080#1094#1091
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -19
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 2
+      OnClick = LoadTableButtonClick
     end
   end
 end
