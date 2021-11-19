@@ -21,7 +21,8 @@ uses
   TableMenu in 'Menu\TableMenu.pas' {$R *.res},
   Expression in 'Utils\Expression.pas',
   About in 'Forms\About.pas' {AboutForm},
-  Helper in 'Forms\Helper.pas' {HelperForm};
+  Helper in 'Forms\Helper.pas' {HelperForm},
+  Sorting in 'Forms\Sorting.pas' {SortingForm};
 
 {$R *.res}
 
@@ -48,6 +49,8 @@ begin
 
   FormManager.gHelperForm := THelperForm.Create(Application);
   FormManager.gHelperForm.SetMenu(MainMenu.InitMenu);
+
+  FormManager.gSortingForm := TSortingForm.Create(Application);
 
   FormManager.Open(FormManager.TType.Main);
 

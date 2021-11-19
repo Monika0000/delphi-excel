@@ -8,8 +8,21 @@ uses
 function ConvertANSItoASCII(s: string): string;
 function ConvertASCIItoANSI(a: string): string;
 function StringToPWide(sStr: string): PWideChar;
+function FindNext(str: string; value: char; skipFounds: integer): integer;
 
 implementation
+
+function FindNext(str: string; value: char; skipFounds: integer): integer;
+begin
+  var pos := -1;
+  for var i := 0 to skipFounds do
+  begin
+    pos := str.IndexOf(value, pos + 1);
+    if pos = -1 then
+      exit;    
+  end;
+  Result := pos;
+end;
 
 function StringToPWide(sStr: string): PWideChar;
 begin

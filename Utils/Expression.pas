@@ -3,9 +3,11 @@ unit Expression;
 interface
 
 uses Vcl.Grids, System.Classes, System.SysUtils, Winapi.Windows, System.Generics.Collections, Vcl.Dialogs,
-     System.Math, System.Character;
+     System.Math, System.Character, StringUtils;
 
 procedure MathCell(grid, visible: TStringGrid; cell: TPoint);
+// x = row, y = col
+procedure OffsetExpressions(grid: TStringGrid; after, offset: TPoint);
 
 type TExprType = (Unknown, Numeric, Literal);
 
@@ -42,6 +44,76 @@ private
 end;
 
 implementation // --------------------------------------------------------------
+
+function OffsetCell(str: string; offset: TPoint): string;
+begin
+  try
+    var count := 0;
+
+    var openId := str.IndexOf('[');
+    var closeId := str.IndexOf(']');
+    while openId >= 0 do begin
+      if closeId < 0 then
+        raise Exception.Create('"]" was not found');
+
+      if openId > closeId then begin
+        ShowMessage('OffsetCell() : something went wrong...');
+        exit;
+      end;
+
+      var args := str.Substring(openId + 1, (closeId - openId) - 1).Split([':']);
+
+      var row := StrToInt(args[0]) + offset.x;
+      var col := StrToInt(args[1]) + offset.y;
+
+      var temp := str.Remove(openId, (closeId - openId) + 1);
+      str := temp.Insert(openId, '[' + IntToStr(row) +':' + IntToStr(col) + ']');
+
+      openId := str.IndexOf('[', openId + 1);
+
+      inc(count);
+      closeId := StringUtils.FindNext(str, ']', count);
+    end;
+  except
+
+  end;
+
+  Result := str;
+end;
+
+procedure OffsetExpressions(grid: TStringGrid; after, offset: TPoint);
+begin
+  for var row := after.x to grid.RowCount - 1 do
+    for var col := after.y to grid.ColCount - 1 do begin
+      var str := grid.Rows[row][col];
+
+      if str.IndexOf('=') = 0 then begin
+        grid.Rows[row][col] := OffsetCell(str, offset);
+      end;
+    end;
+
+  (*
+
+   r openId := expr.IndexOf('[');
+  while openId >= 0 do begin
+    var closeId := expr.IndexOf(']');
+
+    if closeId < 0 then
+      raise Exception.Create('"]" was not found');
+
+    var args := expr.Substring(openId + 1, (closeId - openId) - 1).Split([':']);
+
+    expr := expr.Remove(openId, (closeId - openId) + 1);
+
+    var cell := grid.Rows[StrToInt(args[0])][StrToInt(args[1])];
+    if cell[1] = '=' then
+      cell := cell.Substring(1, Length(cell) - 1);
+
+    expr := expr.Insert(openId, '(' + cell + ')');
+
+    openId := expr.IndexOf('[');
+  end; *)
+end;
 
 constructor TParser.TParser(input: string);
 begin

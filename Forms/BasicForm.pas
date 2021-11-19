@@ -15,11 +15,17 @@ type
     procedure WMGetSysCommand(var Message : TMessage); message WM_SYSCOMMAND;
   public
     procedure SetMenu(menu: TMenuInitProc);
+    function IsModal(): boolean; virtual;
   protected
     var _menu: TMenuInitProc;
   end;
 
 implementation
+
+function TIBasicForm.IsModal(): boolean;
+begin
+  Result := true;
+end;
 
 procedure TIBasicForm.SetMenu(menu: TMenuInitProc);
 begin
@@ -31,8 +37,11 @@ begin
   case Message.WParam of
     SC_CLOSE:
     begin
-      if MessageDlg('Выйти? Все несохраненные изменения будут утеряны.',mtCustom, [mbYes, mbCancel], 0) = mrYes then
-        Application.Terminate;
+      if IsModal then begin
+        if MessageDlg('Выйти? Все несохраненные изменения будут утеряны.',mtCustom, [mbYes, mbCancel], 0) = mrYes then
+          Application.Terminate;
+      end else
+        inherited;
     end;
     SC_MINIMIZE:
       Application.Minimize;

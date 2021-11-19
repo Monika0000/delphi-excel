@@ -6,7 +6,7 @@ uses
   MenuManager, BasicForm, System.Classes, Vcl.Controls, Vcl.Grids, Winapi.Windows,
   Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, System.SysUtils, CommandManager, GridCellCommand,
   Vcl.Menus, Types, RowCommand, ColCommand, FileSystem, System.JSON,
-  Vcl.ExtCtrls, Expression;
+  Vcl.ExtCtrls, Expression, FormManager;
 
 type
   TTableForm = class(BasicForm.TIBasicForm)
@@ -288,6 +288,8 @@ begin
                                                        
     FileSystem.JsonToStringGrid(Self.TableGrid, json);
 
+    VisibleTableGrid.ColCount := TableGrid.ColCount;
+
     for var col := 0 to TableGrid.ColCount - 1 do
       VisibleTableGrid.ColWidths[col] := TableGrid.ColWidths[col];
 
@@ -300,10 +302,12 @@ begin
     
     json.Free;
   except
-    ShowMessage('Failed to load save! Path: ' + filename);
-    Result := false;
-    FreeAndNil(_file);
-    exit;
+    on ex: Exception do begin
+      ShowMessage('Failed to load save! Path: ' + filename + ' Reason: ' + ex.Message);
+      Result := false;
+      FreeAndNil(_file);
+      exit;
+    end;
   end;
 
   Result := true;
@@ -338,10 +342,12 @@ begin
       CommandManager.gCmdManager.Undo()
     else if key = 89 then // Y
       CommandManager.gCmdManager.Redo()
-    else if key = 83 then
+    else if key = 83 then // S
       Self.Save()
-    else if key = 76 then
-      Self.Load();
+    else if key = 76 then // L
+      Self.Load()
+    else if key = 70 then // F
+      FormManager.Open(FormManager.Sorting);
   end;
 end;
 

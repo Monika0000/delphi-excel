@@ -2,7 +2,7 @@ unit ColCommand;
 
 interface
 
-uses CommandManager, Vcl.Grids, System.Classes, Vcl.Dialogs, Types;
+uses CommandManager, Vcl.Grids, System.Classes, Vcl.Dialogs, Types, Expression, Winapi.Windows;
 
 type TPlace = (PlaceNone = 0, Left = 1, Right = 2);
 
@@ -39,6 +39,7 @@ begin
     for var i := 0 to RowCount do
       Cols[_col][i] := '';
   end;
+  Expression.OffsetExpressions(_grid, TPoint.Create(1, _col + 1), TPoint.Create(0, 1))
 end;
 
 procedure TColCommand.InsertColRight();
@@ -54,6 +55,7 @@ begin
     for var i := 0 to RowCount do
       Cols[_col + 1][i] := '';
   end;
+  Expression.OffsetExpressions(_grid, TPoint.Create(1, _col + 2), TPoint.Create(0, 1))
 end;
 
 procedure TColCommand.DeleteCol();
@@ -70,6 +72,7 @@ begin
       for var j := 0 to RowCount do
         Cols[i][j] := Cols[i + 1][j];
   end;
+  Expression.OffsetExpressions(_grid, TPoint.Create(1, _col), TPoint.Create(0, -1))
 end;
 
 constructor TColCommand.Create(grid: &TStringGrid; col: integer; callback: TCallBack; place: TPlace);

@@ -2,7 +2,7 @@ unit RowCommand;
 
 interface
 
-uses CommandManager, Vcl.Grids, System.Classes, Vcl.Dialogs;
+uses CommandManager, Vcl.Grids, System.Classes, Vcl.Dialogs, Expression, Winapi.Windows;
 
 type TPlace = (PlaceNone = 0, Up = 1, Down = 2);
 
@@ -41,6 +41,7 @@ begin
     for var i := 1 to ColCount do
       Rows[_row + 1][i] := '';
   end;
+  Expression.OffsetExpressions(_grid, TPoint.Create(_row + 2, 1), TPoint.Create(1, 0))
 end;
 
 procedure TRowCommand.InsertRowUp();
@@ -56,6 +57,7 @@ begin
     for var i := 1 to ColCount do
       Rows[_row][i] := '';
   end;
+  Expression.OffsetExpressions(_grid, TPoint.Create(_row + 1, 1), TPoint.Create(1, 0))
 end;
 
 procedure TRowCommand.DeleteRow();
@@ -72,6 +74,7 @@ begin
       for var j := 1 to ColCount do
         Rows[i][j] := Rows[i + 1][j];
   end;
+  Expression.OffsetExpressions(_grid, TPoint.Create(_row + 1, 1), TPoint.Create(-1, 0))
 end;
 
 constructor TRowCommand.Create(grid: &TStringGrid; row: integer; callback: TCallBack; place: TPlace);
