@@ -91,28 +91,6 @@ begin
         grid.Rows[row][col] := OffsetCell(str, offset);
       end;
     end;
-
-  (*
-
-   r openId := expr.IndexOf('[');
-  while openId >= 0 do begin
-    var closeId := expr.IndexOf(']');
-
-    if closeId < 0 then
-      raise Exception.Create('"]" was not found');
-
-    var args := expr.Substring(openId + 1, (closeId - openId) - 1).Split([':']);
-
-    expr := expr.Remove(openId, (closeId - openId) + 1);
-
-    var cell := grid.Rows[StrToInt(args[0])][StrToInt(args[1])];
-    if cell[1] = '=' then
-      cell := cell.Substring(1, Length(cell) - 1);
-
-    expr := expr.Insert(openId, '(' + cell + ')');
-
-    openId := expr.IndexOf('[');
-  end; *)
 end;
 
 constructor TParser.TParser(input: string);

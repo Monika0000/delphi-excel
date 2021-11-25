@@ -78,8 +78,8 @@ object AboutForm: TAboutForm
       object Label3: TLabel
         Left = 12
         Top = 203
-        Width = 294
-        Height = 40
+        Width = 274
+        Height = 20
         Alignment = taCenter
         Caption = #1040#1074#1090#1086#1088': '#1052#1072#1085#1094#1091#1088#1086#1074' '#1053#1080#1082#1080#1090#1072' (a.k.a. Monika)'
         Font.Charset = DEFAULT_CHARSET
@@ -108,8 +108,6 @@ object AboutForm: TAboutForm
         ParentFont = False
         TabOrder = 0
         OnLinkClick = GitHubLinkLabelLinkClick
-        ExplicitLeft = 6
-        ExplicitTop = 408
       end
     end
     object Panel2: TPanel

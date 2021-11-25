@@ -1,4 +1,4 @@
-object SortingForm: TSortingForm
+﻿object SortingForm: TSortingForm
   Left = 0
   Top = 0
   AlphaBlend = True
@@ -78,7 +78,7 @@ object SortingForm: TSortingForm
       Align = alBottom
       TabOrder = 1
       object ErrorImage: TImage
-        Left = 232
+        Left = 272
         Top = 48
         Width = 33
         Height = 31
@@ -168,8 +168,21 @@ object SortingForm: TSortingForm
           240CA02F9CF124E3AD3530A985AE6B688F623AF3E93A8776AB60ECD7B2453BFE
           0B43CBCF5E02F01A2F0000000049454E44AE426082}
       end
+      object Сортировка: TLabel
+        Left = 431
+        Top = 6
+        Width = 86
+        Height = 21
+        Caption = #1057#1086#1088#1090#1080#1088#1086#1074#1082#1072
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+      end
       object ResetFilter: TButton
-        Left = 215
+        Left = 255
         Top = 6
         Width = 75
         Height = 25
@@ -180,7 +193,7 @@ object SortingForm: TSortingForm
       object ColSelectComboBox: TComboBox
         Left = 8
         Top = 6
-        Width = 201
+        Width = 241
         Height = 23
         Align = alCustom
         Style = csDropDownList
@@ -188,9 +201,9 @@ object SortingForm: TSortingForm
         OnChange = ColSelectComboBoxChange
       end
       object OperationValue: TEdit
-        Left = 55
+        Left = 79
         Top = 48
-        Width = 154
+        Width = 170
         Height = 23
         TabOrder = 2
         Text = 'OperationValue'
@@ -199,7 +212,7 @@ object SortingForm: TSortingForm
       object OperationComboBox: TComboBox
         Left = 8
         Top = 48
-        Width = 41
+        Width = 65
         Height = 23
         Style = csDropDownList
         TabOrder = 3
@@ -208,11 +221,47 @@ object SortingForm: TSortingForm
       object TypeComboBox: TComboBox
         Left = 8
         Top = 92
-        Width = 202
+        Width = 241
         Height = 23
         Style = csDropDownList
         TabOrder = 4
         OnChange = TypeComboBoxChange
+      end
+      object RangeAEdit: TEdit
+        Left = 79
+        Top = 48
+        Width = 74
+        Height = 23
+        TabOrder = 5
+        TextHint = 'Range A'
+        OnChange = RangeAEditChange
+      end
+      object RangeBEdit: TEdit
+        Left = 175
+        Top = 48
+        Width = 74
+        Height = 23
+        TabOrder = 6
+        TextHint = 'Range B'
+        OnChange = RangeBEditChange
+      end
+      object SortTypeComboBox: TComboBox
+        Left = 440
+        Top = 84
+        Width = 177
+        Height = 23
+        Style = csDropDownList
+        TabOrder = 7
+        OnChange = SortTypeComboBoxChange
+      end
+      object SortColComboBox: TComboBox
+        Left = 440
+        Top = 44
+        Width = 177
+        Height = 23
+        Style = csDropDownList
+        TabOrder = 8
+        OnChange = SortColComboBoxChange
       end
     end
   end

@@ -14,11 +14,6 @@ begin
   (FormManager.gTableForm as TTableForm).Save();
 end;
 
-procedure SaveAsMenuButton(Sender: TObject);
-begin
-
-end;
-
 procedure RedoMenuButton(Sender: TObject);
 begin
   CommandManager.gCmdManager.Redo();
@@ -35,7 +30,6 @@ begin
   fileMenu.Add(AddSubmenu(fileMenu, 'New', MainMenu.NewMenuButton));
   fileMenu.Add(AddSubmenu(fileMenu, 'Load', MainMenu.LoadMenuButton));
   fileMenu.Add(AddSubmenu(fileMenu, 'Save', SaveMenuButton));
-  fileMenu.Add(AddSubmenu(fileMenu, 'Save as', SaveAsMenuButton));
   fileMenu.Add(AddSubmenu(fileMenu, 'Close', MainMenu.CloseMenuButton));
 
   var editMenu := MenuManager.AddSubmenu(menu, 'Edit');
