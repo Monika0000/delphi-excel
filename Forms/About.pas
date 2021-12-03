@@ -37,7 +37,7 @@ implementation
 
 procedure TAboutForm.BackButtonClick(Sender: TObject);
 begin
-  FormManager.Back();
+  TFormManager.GetInstance().Back();
 end;
 
 procedure TAboutForm.FormShow(Sender: TObject);

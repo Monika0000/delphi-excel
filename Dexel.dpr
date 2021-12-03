@@ -22,7 +22,8 @@ uses
   Expression in 'Utils\Expression.pas',
   About in 'Forms\About.pas' {AboutForm},
   Helper in 'Forms\Helper.pas' {HelperForm},
-  Sorting in 'Forms\Sorting.pas' {SortingForm};
+  Sorting in 'Forms\Sorting.pas' {SortingForm},
+  Singleton in 'Utils\Singleton.pas';
 
 {$R *.res}
 
@@ -32,27 +33,27 @@ begin
 
   Application.Icon.LoadFromFile(FileSystem.GetExeFolder() + FileSystem.ResourcesFolder + '\dexel.ico');
 
-  CommandManager.Init();
-  FormManager.Init();
+  TCmdManager.GetInstance().ClearAfter(0);
+  TFormManager.GetInstance().Init();
 
-  FormManager.gTableForm := TTableForm.Create(Application);
-  FormManager.gTableForm.SetMenu(TableMenu.InitMenu);
+  TFormManager.GetInstance().SetForm(TTableForm.Create(Application), FormManager.TType.Table);
+  TFormManager.GetInstance().GetForm(FormManager.Table).SetMenu(TableMenu.InitMenu);
 
-  FormManager.gMainForm := TMainForm.Create(Application);
-  FormManager.gMainForm.SetMenu(MainMenu.InitMenu);
+  TFormManager.GetInstance().SetForm(TMainForm.Create(Application), FormManager.TType.Main);
+  TFormManager.GetInstance().GetForm(FormManager.Main).SetMenu(MainMenu.InitMenu);
 
-  FormManager.gTableMasterForm := TTableMasterForm.Create(Application);
-  FormManager.gTableMasterForm.SetMenu(MainMenu.InitMenu);
+  TFormManager.GetInstance().SetForm(TTableMasterForm.Create(Application), FormManager.TType.TableMaster);
+  TFormManager.GetInstance().GetForm(FormManager.TableMaster).SetMenu(MainMenu.InitMenu);
 
-  FormManager.gAboutForm := TAboutForm.Create(Application);
-  FormManager.gAboutForm.SetMenu(MainMenu.InitMenu);
+  TFormManager.GetInstance().SetForm(TAboutForm.Create(Application), FormManager.TType.About);
+  TFormManager.GetInstance().GetForm(FormManager.About).SetMenu(MainMenu.InitMenu);
 
-  FormManager.gHelperForm := THelperForm.Create(Application);
-  FormManager.gHelperForm.SetMenu(MainMenu.InitMenu);
+  TFormManager.GetInstance().SetForm(THelperForm.Create(Application), FormManager.TType.Helper);
+  TFormManager.GetInstance().GetForm(FormManager.Helper).SetMenu(MainMenu.InitMenu);
 
-  FormManager.gSortingForm := TSortingForm.Create(Application);
+  TFormManager.GetInstance().SetForm(TSortingForm.Create(Application), FormManager.TType.Sorting);
 
-  FormManager.Open(FormManager.TType.Main);
+  TFormManager.GetInstance().Open(FormManager.TType.Main);
 
   Application.Run;
 end.

@@ -3,7 +3,7 @@ unit MenuManager;
 interface
 
 uses
-  Vcl.Menus, Forms, System.Classes;
+  Vcl.Menus, Forms, System.Classes, Singleton;
 
 type
   TClickCallBack = procedure(Sender: TObject);

@@ -127,8 +127,8 @@ object AboutForm: TAboutForm
         object Label1: TLabel
           Left = 1
           Top = 1
-          Width = 413
-          Height = 46
+          Width = 346
+          Height = 27
           Align = alClient
           Alignment = taCenter
           Caption = #1055#1088#1086#1075#1088#1072#1084#1084#1072' delphi-excel (Dexel)'
@@ -138,8 +138,6 @@ object AboutForm: TAboutForm
           Font.Name = 'Source Serif Pro'
           Font.Style = []
           ParentFont = False
-          ExplicitWidth = 350
-          ExplicitHeight = 33
         end
       end
       object Panel3: TPanel

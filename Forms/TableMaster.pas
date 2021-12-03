@@ -38,7 +38,7 @@ implementation
 
 procedure TTableMasterForm.CancelButtonClick(Sender: TObject);
 begin
-  FormManager.Back();
+  TFormManager.GetInstance().Back();
 end;
 
 procedure TTableMasterForm.CreateButtonClick(Sender: TObject);
@@ -86,9 +86,9 @@ begin
     exit;
   end;
 
-  Table.TTableForm(FormManager.gTableForm).New(rowCount, colCount, EnableRepeatsCheckBox.Checked, colNames);
+  Table.TTableForm(TFormManager.GetInstance().GetForm(TType.Table)).New(rowCount, colCount, EnableRepeatsCheckBox.Checked, colNames);
 
-  FormManager.Open(FormManager.Table);
+  TFormManager.GetInstance().Open(FormManager.Table);
 end;
 
 procedure TTableMasterForm.FormShow(Sender: TObject);

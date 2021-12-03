@@ -37,12 +37,11 @@ object TableMasterForm: TTableMasterForm
       object Label1: TLabel
         Left = 1
         Top = 1
-        Width = 220
+        Width = 54
         Height = 15
         Align = alTop
         Alignment = taCenter
         Caption = #1064#1072#1073#1083#1086#1085#1099
-        ExplicitWidth = 54
       end
       object TemplatesListBox: TListBox
         Left = 1

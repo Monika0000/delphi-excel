@@ -43,15 +43,15 @@ end;
 
 procedure TMainForm.LoadTableButtonClick(Sender: TObject);
 begin
-  if TTableForm(FormManager.gTableForm).Load() then begin
-    FormManager.Open(FormManager.TType.Table);
-    CommandManager.gCmdManager.ClearAll();
+  if TTableForm(TFormManager.GetInstance().GetForm(TType.Table)).Load() then begin
+    TFormManager.GetInstance().Open(FormManager.TType.Table);
+    TCmdManager.GetInstance().ClearAll();
   end;
 end;
 
 procedure TMainForm.NewTableButtonClick(Sender: TObject);
 begin
-  FormManager.Open(FormManager.TType.TableMaster);
+  TFormManager.GetInstance().Open(FormManager.TType.TableMaster);
 end;
 
 end.

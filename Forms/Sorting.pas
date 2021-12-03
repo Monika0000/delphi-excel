@@ -191,7 +191,7 @@ end;
 
 procedure TSortingForm.Update();
 begin
-  var _table := (gTableForm as Table.TTableForm).VisibleTableGrid;
+  var _table := (TFormManager.GetInstance().GetForm(TType.Table) as Table.TTableForm).VisibleTableGrid;
 
   TableGrid.ColCount := _table.ColCount;
   TableGrid.RowCount := 1;
@@ -340,7 +340,7 @@ end;
 
 procedure TSortingForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  FormManager.Close(FormManager.TType.Sorting);
+  TFormManager.GetInstance().Close(FormManager.TType.Sorting);
 end;
 
 procedure TSortingForm.FormCreate(Sender: TObject);

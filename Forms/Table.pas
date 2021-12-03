@@ -135,7 +135,7 @@ begin
     end);
 
   cmd.Redo();
-  CommandManager.gCmdManager.Send(cmd);
+  TCmdManager.GetInstance().Send(cmd);
 end;
 
 procedure TTableForm.DeleteRowClick(Sender: TObject);
@@ -152,7 +152,7 @@ begin
     end);
 
   cmd.Redo();
-  CommandManager.gCmdManager.Send(cmd);
+  TCmdManager.GetInstance().Send(cmd);
 end;
 
 procedure TTableForm.EnumerateRows();
@@ -182,7 +182,7 @@ begin
   );
 
   cmd.Redo();
-  CommandManager.gCmdManager.Send(cmd);
+    TCmdManager.GetInstance().Send(cmd);
 end;
 
 procedure TTableForm.InsertColRightClick(Sender: TObject);
@@ -197,7 +197,7 @@ begin
   );
 
   cmd.Redo();
-  CommandManager.gCmdManager.Send(cmd);
+  TCmdManager.GetInstance().Send(cmd);
 end;
 
 procedure TTableForm.InsertRowDownClick(Sender: TObject);
@@ -211,7 +211,7 @@ begin
   );
 
   cmd.Redo();
-  CommandManager.gCmdManager.Send(cmd);
+  TCmdManager.GetInstance().Send(cmd);
 end;
 
 procedure TTableForm.InsertRowUpClick(Sender: TObject);
@@ -229,7 +229,7 @@ begin
   );
 
   cmd.Redo();
-  CommandManager.gCmdManager.Send(cmd);
+  TCmdManager.GetInstance().Send(cmd);
 end;
 
 procedure TTableForm.FormCreate(Sender: TObject);
@@ -240,7 +240,7 @@ end;
 
 procedure TTableForm.New(rows, cols: integer; _repeat: boolean; colNames: TArray<string>);
 begin
-  CommandManager.gCmdManager.ClearAll();
+  TCmdManager.GetInstance().ClearAll();
 
   Clear();
 
@@ -339,15 +339,15 @@ procedure TTableForm.VisibleTableGridKeyDown(Sender: TObject; var Key: Word;
 begin
   if (GetKeyState(VK_CONTROL) < 0) then begin
     if key = 90 then // Z
-      CommandManager.gCmdManager.Undo()
+        TCmdManager.GetInstance().Undo()
     else if key = 89 then // Y
-      CommandManager.gCmdManager.Redo()
+        TCmdManager.GetInstance().Redo()
     else if key = 83 then // S
       Self.Save()
     else if key = 76 then // L
       Self.Load()
     else if key = 70 then // F
-      FormManager.Open(FormManager.Sorting);
+      TFormManager.GetInstance().Open(FormManager.Sorting);
   end;
 end;
 
@@ -370,7 +370,7 @@ begin
 
   TableGrid.Cols[ACol][ARow] := Value;
 
-  var top := gCmdManager.Top();
+  var top := TCmdManager.GetInstance().Top();
 
   if Sender <> nil then
     UpdateCellEdit()
@@ -398,7 +398,7 @@ begin
       UpdateVisible(TPoint.Create(ACol, ARow));
     end);
 
-  CommandManager.gCmdManager.Send(cmd);
+  TCmdManager.GetInstance().Send(cmd);
 end;
 
 procedure TTableForm.CellEditChange(Sender: TObject);

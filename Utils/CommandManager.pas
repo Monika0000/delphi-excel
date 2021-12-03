@@ -2,7 +2,7 @@ unit CommandManager;
 
 interface
 
-uses Vcl.Dialogs, System.SysUtils, IOUtils;
+uses Vcl.Dialogs, System.SysUtils, IOUtils, Singleton;
 
 type TICommand = class
   public
@@ -10,7 +10,7 @@ type TICommand = class
     procedure Undo(); virtual; abstract;
 end;
 
-type TCmdManager = class
+type TCmdManager = class(TSingleton)
   public
     procedure Send(cmd: TICommand);
     procedure Redo();
@@ -23,10 +23,6 @@ type TCmdManager = class
     var _current: integer;
     var _commands: array[0..(_maxCmds - 1)] of TICommand;
 end;
-
-var gCmdManager: TCmdManager;
-
-procedure Init();
 
 implementation
 
@@ -43,12 +39,6 @@ begin
     Top := nil
   else
     Top := _commands[_current - 1];
-end;
-
-procedure Init();
-begin
-  gCmdManager := TCmdManager.Create();
-  gCmdManager.ClearAfter(0);
 end;
 
 procedure TCmdManager.ClearAfter(_begin: Integer);

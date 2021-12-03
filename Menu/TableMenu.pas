@@ -11,17 +11,17 @@ implementation
 
 procedure SaveMenuButton(Sender: TObject);
 begin
-  (FormManager.gTableForm as TTableForm).Save();
+  (TFormManager.GetInstance().GetForm(TType.Table) as TTableForm).Save();
 end;
 
 procedure RedoMenuButton(Sender: TObject);
 begin
-  CommandManager.gCmdManager.Redo();
+  TCmdManager.GetInstance().Redo();
 end;
 
 procedure UndoMenuButton(Sender: TObject);
 begin
-  CommandManager.gCmdManager.Undo();
+  TCmdManager.GetInstance().Undo();
 end;
 
 procedure InitMenu(menu: TMainMenu);

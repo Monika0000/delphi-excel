@@ -17,31 +17,31 @@ implementation
 
 procedure NewMenuButton(Sender: TObject);
 begin
-  FormManager.Open(FormManager.TType.TableMaster);
+  TFormManager.GetInstance().Open(FormManager.TType.TableMaster);
 end;
 
 procedure LoadMenuButton(Sender: TObject);
 begin
-  if TTableForm(FormManager.gTableForm).Load() then begin
-    FormManager.Open(FormManager.TType.Table);
-    CommandManager.gCmdManager.ClearAll();
+  if TTableForm(TFormManager.GetInstance().GetForm(TType.Table)).Load() then begin
+    TFormManager.GetInstance().Open(FormManager.TType.Table);
+    TCmdManager.GetInstance().ClearAll();
   end;
 end;
 
 procedure CloseMenuButton(Sender: TObject);
 begin
-  TTableForm(FormManager.gTableForm).Clear();
-  FormManager.Open(FormManager.TType.Main);
+  TTableForm(TFormManager.GetInstance().GetForm(TType.Table)).Clear();
+  TFormManager.GetInstance().Open(FormManager.TType.Main);
 end;
 
 procedure AboutMenuButton(Sender: TObject);
 begin
-  FormManager.Open(FormManager.TType.About);
+  TFormManager.GetInstance().Open(FormManager.TType.About);
 end;
 
 procedure HelperMenuButton(Sender: TObject);
 begin
-  FormManager.Open(FormManager.TType.Helper);
+  TFormManager.GetInstance().Open(FormManager.TType.Helper);
 end;
 
 procedure InitMenu(menu: TMainMenu);

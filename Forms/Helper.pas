@@ -26,6 +26,11 @@ type
     HotKeysSection: TTabSheet;
     ExpressionsSection: TTabSheet;
     ExpressionLabel: TLabel;
+    FindSection: TTabSheet;
+    SortSection: TTabSheet;
+    Label6: TLabel;
+    FindLabel: TLabel;
+    Label7: TLabel;
     procedure FormShow(Sender: TObject);
     procedure BackButtonClick(Sender: TObject);
     procedure SectionListBoxClick(Sender: TObject);
@@ -51,7 +56,7 @@ end;
 
 procedure THelperForm.BackButtonClick(Sender: TObject);
 begin
-  FormManager.Back();
+  TFormManager.GetInstance().Back();
 end;
 
 procedure THelperForm.FormCreate(Sender: TObject);
@@ -60,10 +65,13 @@ begin
 
   _sections.Add('Горячие клавиши', HotKeysSection);
   _sections.Add('Выражения', ExpressionsSection);
+  _sections.Add('Поиск', FindSection);
+  _sections.Add('Сортировка', SortSection);
 
   HideAll();
 
   ExpressionLabel.Caption := string(ExpressionLabel.Caption).Replace('#', #10);
+  FindLabel.Caption := string(FindLabel.Caption).Replace('#', #10);
 
   for var Key in _sections.Keys do
     SectionListBox.Items.Add(Key);

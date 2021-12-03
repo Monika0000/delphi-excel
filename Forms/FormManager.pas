@@ -3,112 +3,117 @@ unit FormManager;
 interface
 
 uses
-  BasicForm, Vcl.Forms, Types, Vcl.Dialogs, System.Generics.Collections;
+  BasicForm, Vcl.Forms, Types, Vcl.Dialogs, System.Generics.Collections, Singleton;
 
 type
   TType = (None = 0, Main = 1, Table = 2, TableMaster = 3, About = 4, Helper = 5, Sorting = 6);
 
-var
-  gMainForm:        BasicForm.TIBasicForm = nil;
-  gTableForm:       BasicForm.TIBasicForm = nil;
-  gTableMasterForm: BasicForm.TIBasicForm = nil;
-  gAboutForm:       BasicForm.TIBasicForm = nil;
-  gHelperForm:      BasicForm.TIBasicForm = nil;
-  gSortingForm:     BasicForm.TIBasicForm = nil;
-
-procedure Close(_type: TType);
-procedure Open(_type: TType);
-procedure Back();
-procedure Init();
+type TFormManager = class(TSingleton)
+public
+  procedure Close(_type: TType);
+  procedure Open(_type: TType);
+  procedure Back();
+  procedure Init();
+  procedure SetForm(form: TIBasicForm; _type: TType);
+  function GetForm(_type: TType): TIBasicForm;
+private
+  procedure CloseNonModal();
+  function TypeToForm(_type: TType): TIBasicForm;
+private
+  _forms: TDictionary<TType, TIBasicForm>;
+  _currentType: TType;
+  _currentForm: BasicForm.TIBasicForm;
+  _history: TStack<TType>;
+  _nonModals: TSet<TType>;
+end;
 
 implementation
 
-var
-  gCurrentType: TType = TType.None;
-  gCurrentForm: BasicForm.TIBasicForm = nil;
-  gHistory: TStack<TType>;
-  gNonModals: TSet<TType>;
-
-function TypeToForm(_type: TType): BasicForm.TIBasicForm;
+function TFormManager.GetForm(_type: TType): TIBasicForm;
 begin
-  case _type of
-    TType.None:        Result := nil;
-    TType.Main:        Result := gMainForm;
-    TType.Table:       Result := gTableForm;
-    TType.TableMaster: Result := gTableMasterForm;
-    TType.About:       Result := gAboutForm;
-    TType.Helper:      Result := gHelperForm;
-    TType.Sorting:     Result := gSortingForm;
-  end;
+  Result := TypeToForm(_type);
 end;
 
-procedure Close(_type: TType);
+procedure TFormManager.SetForm(form: TIBasicForm; _type: TType);
+begin
+  _forms.Add(_type, form);
+end;
+
+function TFormManager.TypeToForm(_type: TType): BasicForm.TIBasicForm;
+begin
+  Result := _forms[_type];
+end;
+
+procedure TFormManager.Close(_type: TType);
 begin
   var form: BasicForm.TIBasicForm := TypeToForm(_type);
   if form.IsModal() then
     Application.Terminate
   else begin
-    if gNonModals.Contains(_type) then begin
-      gNonModals.Exclude(_type);
+    if _nonModals.Contains(_type) then begin
+      _nonModals.Exclude(_type);
       form.Close();
     end;
   end;
 end;
 
-procedure Back();
+procedure TFormManager.Back();
 begin
-  if gHistory.Count <= 1 then begin
+  if _history.Count <= 1 then begin
     ShowMessage('History is empty!');
     exit;
   end;
 
-  gHistory.Pop; // current form
+  _history.Pop; // current form
 
-  Open(gHistory.Pop); // prev form
+  Open(_history.Pop); // prev form
 end;
 
-procedure CloseNonModal();
+procedure TFormManager.CloseNonModal();
 begin
-  for var form in gNonModals.Values() do begin
+  for var form in _nonModals.Values() do begin
     TypeToForm(form).Close();
   end;
-  gNonModals.Clear();
+  _nonModals.Clear();
 end;
 
-procedure Init();
+procedure TFormManager.Init();
 begin
-  gNonModals := TSet<TType>.Create();
-  gHistory := TStack<TType>.Create;
+  _currentForm := nil;
+  _currentType := TType.None;
+  _nonModals := TSet<TType>.Create();
+  _history := TStack<TType>.Create;
+  _forms := TDictionary<TType, TIBasicForm>.Create();
 end;
 
-procedure Open(_type: TType);
+procedure TFormManager.Open(_type: TType);
 begin          
   // select new form
   var newForm: BasicForm.TIBasicForm := TypeToForm(_type);
 
   if not newForm.IsModal() then // немодальные спец формы
   begin
-    if not gNonModals.Contains(_type) then
-      gNonModals.Include(_type);
+    if not _nonModals.Contains(_type) then
+      _nonModals.Include(_type);
   end else
   begin // обычые модальные формы
-    if _type = gCurrentType then
+    if _type = _currentType then
       exit;
 
-    gCurrentType := _type;
-    gHistory.Push(gCurrentType);
+    _currentType := _type;
+    _history.Push(_currentType);
 
     // close the old form and inherit its settings
-    if gCurrentForm <> nil then begin
-      gCurrentForm.Hide();
-      newForm.Width    := gCurrentForm.Width;
-      newForm.Height   := gCurrentForm.Height;
-      newForm.Top      := gCurrentForm.Top;
-      newForm.Left     := gCurrentForm.Left;
-      newForm.Position := gCurrentForm.Position;
+    if _currentForm <> nil then begin
+      _currentForm.Hide();
+      newForm.Width    := _currentForm.Width;
+      newForm.Height   := _currentForm.Height;
+      newForm.Top      := _currentForm.Top;
+      newForm.Left     := _currentForm.Left;
+      newForm.Position := _currentForm.Position;
     end;
 
-    gCurrentForm := newForm;
+    _currentForm := newForm;
 
     CloseNonModal();
   end;
